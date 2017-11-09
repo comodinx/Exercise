@@ -32,6 +32,13 @@ a{
     text-decoration: none;
 }
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
 html,
 body {
     width: 100%;
