@@ -36,7 +36,7 @@
             padding: 7px 5px;
             overflow: auto;
             display: inline-block;
-            position: relative;
+            position: absolute;
             z-index: 910;
             @include box-sizing();
 
