@@ -1,0 +1,27 @@
+
+.categories {
+    .categories-results {
+        list-style: none;
+        margin: 20px 0 0 0;
+
+        .category {
+            display: inline;
+            margin: 0 0 2px;
+
+            &:not(:last-child):after {
+                content: "\f105";
+                display: inline-block;
+                font-family: $fontFamily;
+                color: $fontCategoryColor;
+                margin: 0 10px;
+            }
+
+            .category-name {
+                color: $fontCategoryColor;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.45;
+            }
+        }
+    }
+}

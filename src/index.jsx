@@ -1,0 +1,10 @@
+
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+
+import Routes from './modules/Routes.jsx';
+
+render(
+    <Routes />,
+    document.getElementById('app')
+);

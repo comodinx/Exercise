@@ -1,0 +1,34 @@
+
+@mixin user-select ($type: none) {
+    -webkit-user-select: $type;
+    -moz-user-select: $type;
+    -ms-user-select: $type;
+    user-select: $type;
+}
+
+@mixin box-shadow ($type: none) {
+    -webkit-box-shadow: $type;
+    -moz-box-shadow: $type;
+    box-shadow: $type;
+}
+
+@mixin box-sizing ($type: border-box) {
+    -webkit-box-sizing: $type;
+    -moz-box-sizing: $type;
+    box-sizing: $type;
+}
+
+@mixin border-radius ($radius: 4px) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+}
+
+@mixin object-fit ($type: contain) {
+    -o-object-fit: $type;
+    object-fit: $type;
+}

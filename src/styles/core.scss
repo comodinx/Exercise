@@ -1,0 +1,22 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: $fontColor;
+    background-color: $mainBackgroundColor;
+    font-family: $fontFamily;
+    font-weight: 400;
+}
+
+button,
+input {
+    line-height: normal;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
