@@ -44,11 +44,19 @@ class ItemDetails extends Component {
         }
 
         var categories = this.state.categories || [];
+        var hasStatus = true;
         var description = null;
+        var condition = null;
 
         if (this.state.item.description) {
             description = {__html: this.state.item.description};
         }
+
+        if (this.state.item.condition != 'not_specified') {
+            condition = this.state.item.condition == 'new' ? 'Nuevo' : 'Usado';
+        }
+
+        hasStatus = !!(description || condition);
 
         return (
             <Layout>
@@ -62,12 +70,16 @@ class ItemDetails extends Component {
                                 <img width="500" height="500" alt={this.state.item.title} src={this.state.item.picture} className="item-image-src" />
                             </div>
                             <div className="item-detail" >
-                                <div className="item-status" >
-                                    <span>{this.state.item.condition == 'new' ? 'Nuevo' : 'Usado'}</span>
-                                    {this.state.item.sold_quantity > 0 &&
-                                        <span>&nbsp;-&nbsp;{this.state.item.sold_quantity + " vendidos"}</span>
-                                    }
-                                </div>
+                                {hasStatus &&
+                                    <div className="item-status" >
+                                        {condition &&
+                                            <span>{condition}</span>
+                                        }
+                                        {this.state.item.sold_quantity > 0 &&
+                                            <span>&nbsp;-&nbsp;{this.state.item.sold_quantity + " vendidos"}</span>
+                                        }
+                                    </div>
+                                }
                                 <div className="item-title clear" >
                                     <h1>{this.state.item.title}</h1>
                                 </div>
