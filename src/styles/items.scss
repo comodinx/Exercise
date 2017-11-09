@@ -1,5 +1,7 @@
 
 .items {
+    margin-top: 15px;
+
     .items-results {
         width: 100%;
         height: 100%;
@@ -114,6 +116,8 @@
                 .item-title {
                     font-size: 18px;
                     color: $fontColor;
+                    line-height: 1.2;
+                    margin: 15px 0;
                 }
 
                 .item-price {
@@ -138,6 +142,8 @@
                 .item-description-title {
                     padding-left: 25px;
                     padding-right: 25px;
+                    margin-bottom: 15px;
+                    display: block;
                 }
             }
         }
