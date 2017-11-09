@@ -40,6 +40,7 @@ node_modules
 .idea
 .project
 .strong-pm
+package-lock.json
 
 # SonarQube intermediate storage (http://www.sonarqube.org/)
 .sonar

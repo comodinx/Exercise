@@ -1,7 +1,8 @@
 'use strict';
 
-module.exports = {
-    enabled: true,
-    name: 'Nicolas',
-    lastname: 'Molina'
-};
+const _ = require('underscore');
+const packageJson = require('../../../package.json');
+
+module.exports = _.extend({
+    enabled: true
+}, packageJson);
