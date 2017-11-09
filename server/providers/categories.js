@@ -27,19 +27,11 @@ class Categories {
                         return body.path_from_root;
                     })
                     .then(categories => {
-                        cache[id] = this.parseCategories(categories);
+                        cache[id] = categories;
                         return cache[id];
                     });
             });
     }
-
-    parseCategories(categories) {
-        return _.unique(_.map(categories, this.parseCategory));
-    } 
-
-    parseCategory(category) {
-        return category.name;
-    } 
 
 }
 
