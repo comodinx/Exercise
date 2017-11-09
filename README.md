@@ -5,8 +5,8 @@ Instalar
 --------
 
 ```sh
-git clone https://github.com/comodinx/MeLiExercise.git
-cd "MeLiExercise"
+git clone https://github.com/comodinx/Exercise.git
+cd "Exercise"
 npm i
 ```
 
@@ -26,6 +26,8 @@ npm start
 ```
 
 ##### Tests
+
+> Nota: Los test necesitas soporte especial para funciones asyncronicas, por lo tanto deben correr con node >= 8.2.x.
 
 ```sh
 npm test
@@ -66,7 +68,7 @@ La configuración actual, se encuentra estructurada de la siguientes manera. Ade
 config
   |-> environment
   |  |-> production
-  |  |  |-> cluster.js (enabled: true)
+  |  |  |-> cluster.js (enabled: true, workers (nodes): OS.cpus)
   |  |  |-> server.js (port: 8080)
   |
   | // Default (development)
