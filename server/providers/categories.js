@@ -34,7 +34,7 @@ class Categories {
     }
 
     parseCategories(categories) {
-        return _.map(categories, this.parseCategory);
+        return _.unique(_.map(categories, this.parseCategory));
     } 
 
     parseCategory(category) {

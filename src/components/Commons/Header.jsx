@@ -4,6 +4,8 @@ import { Redirect } from 'react-router';
 
 import browserHistory from '../../modules/History.jsx';
 
+const ITEM_ID_PATTERN = /^MLA\d+$/;
+
 class Header extends Component {
 
     constructor(props) {
@@ -25,7 +27,12 @@ class Header extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        browserHistory.push('/items?search=' + this.state.search);
+        var search = this.state.search;
+
+        if (ITEM_ID_PATTERN.test(search)) {
+            return browserHistory.push('/items/' + search);
+        }
+        browserHistory.push('/items?search=' + search);
     }
 
     render() {
