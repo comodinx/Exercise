@@ -22,12 +22,6 @@ gulp.task('clean:js', () => {
     ]);
 });
 
-gulp.task('clean:coverage', () => {
-  return del([
-        'public/coverage'
-    ]);
-});
-
 
 // Building tasks
 // ----------------------------------------------------

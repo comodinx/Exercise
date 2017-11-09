@@ -4,7 +4,7 @@
   "description": "MeLi exercise",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production gulp compile clean:coverage; NODE_ENV=production node index",
+    "start": "NODE_ENV=production gulp compile; NODE_ENV=production node index",
     "start:d": "NODE_ENV=development gulp",
     "test": "NODE_ENV=test jest --coverage"
   },
