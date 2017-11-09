@@ -15,7 +15,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports = {
-    entry: './src/index.jsx',
+    entry: [
+        './src/index.jsx'
+    ],
     output: {
         path: __dirname + '/public/assets/js',
         filename: 'bundle.js'

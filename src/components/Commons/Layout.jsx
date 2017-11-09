@@ -9,7 +9,7 @@ class Layout extends Component {
     constructor(props) {
         super(props);
 
-        let location = (this.props && this.props.location) || (window && window.location) || {};
+        var location = (this.props && this.props.location) || (window && window.location) || {};
 
         this.state = {
             search: qs.parse(location.search || '?search=').search || ''

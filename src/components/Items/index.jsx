@@ -15,7 +15,7 @@ class Items extends Component {
     constructor(props) {
         super(props);
 
-        let location = (this.props && this.props.location) || (window && window.location) || {};
+        var location = (this.props && this.props.location) || (window && window.location) || {};
 
         this.state = {
             search: qs.parse(location.search || '?search=').search || ''
@@ -23,7 +23,7 @@ class Items extends Component {
     }
 
     componentWillMount() {
-        let search = this.state.search;
+        var search = this.state.search;
 
         if (ITEM_ID_PATTERN.test(search)) {
             return browserHistory.replace('/items/' + search);

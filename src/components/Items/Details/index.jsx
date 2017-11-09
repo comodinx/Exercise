@@ -43,8 +43,8 @@ class ItemDetails extends Component {
             return <NotFound />;
         }
 
-        let categories = this.state.categories || [];
-        let description = null;
+        var categories = this.state.categories || [];
+        var description = null;
 
         if (this.state.item.description) {
             description = {__html: this.state.item.description};
