@@ -1,6 +1,6 @@
 
 .items {
-    margin-top: 15px;
+    margin: 16px 0;
 
     .items-results {
         width: 100%;
@@ -9,25 +9,25 @@
         background-color: white;
         list-style: none;
         overflow: hidden;
-        @include border-radius(10px);
+        @include border-radius(4px);
 
         .item {
-            padding: 0px 15px;
+            padding: 0px 16px;
             @include box-sizing();
 
             .item-row {
                 display: flex;
-                padding: 15px 0;
+                padding: 16px 0;
                 border-bottom: 1px solid $borderColor;
 
                 .item-image {
-                    width: 160px;
-                    height: 160px;
-                    margin-right: 25px;
+                    width: 180px;
+                    height: 180px;
+                    margin-right: 16px;
                     position: relative;
                     display: inline-block;
                     overflow: hidden;
-                    @include border-radius(10px);
+                    @include border-radius(4px);
 
                     .item-image-link {
                         color: $fontColor;
@@ -53,10 +53,14 @@
                             font-size: 24px;
                             color: $fontColor;
                             text-decoration: none;
+
+                            item-price-shipping {
+                                margin-left: 15px;
+                            }
                         }
                     }
                     .item-title {
-                        padding-top: 15px;
+                        padding-top: 32px;
 
                         .item-title-link {
                             font-size: 18px;
@@ -87,13 +91,13 @@
             padding: 15px 0;
 
             .item-image {
-                width: 500px;
+                width: 50%;
                 height: 500px;
-                margin: 25px;
+                margin: 0 17px;
                 position: relative;
                 display: inline-block;
                 overflow: hidden;
-                @include border-radius(10px);
+                @include border-radius(4px);
 
                 .item-image-src {
                     @include object-fit();
@@ -101,29 +105,32 @@
             }
 
             .item-detail {
-                width: 40%;
+                width: 50%;
                 height: 500px;
                 position: relative;
                 display: inline-block;
                 overflow: hidden;
 
                 .item-status {
+                    margin-top: 17px;
                     font-size: 12px;
                     position: relative;
-                    display: inline;
+                    display: inline-block;
                 }
 
                 .item-title {
                     font-size: 18px;
                     color: $fontColor;
-                    line-height: 1.2;
-                    margin: 15px 0;
+                    margin-top: 16px;
+                    margin-right: 17px;
                 }
 
                 .item-price {
                     font-size: 28px;
                     color: $fontColor;
                     position: relative;
+                    margin-top: 32px;
+                    margin-right: 17px;
 
                     .item-price-decimals {
                         font-size: 16px;
@@ -132,18 +139,35 @@
                         top: 4px;
                     }
                 }
+
+                .item-button {
+                    width: auto;
+                    margin: 32px 17px 0 0;
+                    padding: 12px 24px;
+                    font-size: 18px;
+                    display: block;
+                    color: white;
+                    background-color: $buttonBuyColor;
+                    text-align: center;
+                    @include border-radius(4px);
+                }
             }
 
             .item-description {
                 width: 100%;
-                font-size: 18px;
 
                 .item-description-raw,
                 .item-description-title {
-                    padding-left: 25px;
-                    padding-right: 25px;
-                    margin-bottom: 15px;
+                    font-size: 28px;
+                    padding: 0 17px;
+                    margin-bottom: 32px;
                     display: block;
+                }
+
+                .item-description-raw {
+                    font-size: 16px;
+                    color: $fontLightColor;
+                    margin-bottom: 17px;
                 }
             }
         }

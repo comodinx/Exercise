@@ -43,7 +43,7 @@ class Header extends Component {
                     <form className="search" onSubmit={this.handleSubmit} >
                         <input defaultValue={this.state.search} tabIndex="1" type="text" className="search-input" name="search" autoFocus={true} placeholder="Nunca dejes de buscar" onChange={this.handleChange} />
                         <button type="submit" className="search-btn">
-                            <i className="fa fa-search"><span></span></i>
+                            <img width="20" height="20" src="/assets/img/ic_search.png" className="search-btn-icon" />
                         </button>
                     </form>
                 </div>

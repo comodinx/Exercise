@@ -18,7 +18,7 @@ class Item extends Component {
                 <div className="item-row" >
                     <div className="item-image" >
                         <Link to={'/items/' + this.state.item.id} className="item-image-link" >
-                            <img width="160" height="160" alt={this.state.item.title} src={this.state.item.picture} className="item-image-src" />
+                            <img width="180" height="180" alt={this.state.item.title} src={this.state.item.picture} className="item-image-src" />
                         </Link>
                     </div>
                     <div className="item-detail" >
@@ -30,6 +30,9 @@ class Item extends Component {
                                         <FormattedNumber value={this.state.item.price.amount} />
                                     </IntlProvider>
                                 </span>
+                                {this.state.item.free_shipping &&
+                                    <img width="18" height="18" alt="Envio gratis" src="/assets/img/ic_shipping.png" className="item-price-shipping" />
+                                }
                             </Link>
                         </div>
                         <div className="item-title clear" >

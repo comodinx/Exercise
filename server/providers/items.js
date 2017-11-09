@@ -45,7 +45,7 @@ class Items {
                     .get(`${url}/description`)
                     .then(body => {
                         if (body || !body.error) {
-                            item.description = body.text || '';
+                            item.description = body.plain_text || '';
                         }
                         return item;
                     });
@@ -89,7 +89,7 @@ class Items {
         item.price = {
             currency: '$',
             amount: Math.trunc(item.price),
-            decimals: item.price % 1
+            decimals: parseInt(item.price % 1)
         };
 
         // Prepare SHIPPING

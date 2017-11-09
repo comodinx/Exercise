@@ -76,7 +76,7 @@ class ItemDetails extends Component {
                                             <span>{condition}</span>
                                         }
                                         {this.state.item.sold_quantity > 0 &&
-                                            <span>&nbsp;-&nbsp;{this.state.item.sold_quantity + " vendidos"}</span>
+                                            <span>{(condition ? this.state.item.price.decimals : "") + this.state.item.sold_quantity + " vendidos"}</span>
                                         }
                                     </div>
                                 }
@@ -89,10 +89,13 @@ class ItemDetails extends Component {
                                             <span className="item-price-currency">{this.state.item.price.currency}&nbsp;</span>
                                             <span className="item-price-value">
                                                 <FormattedNumber value={this.state.item.price.amount} />
-                                                <span className="item-price-decimals" ><FormattedNumber value={this.state.item.price.decimals} minimumIntegerDigits={2} /></span>
+                                                <span className="item-price-decimals" ><FormattedNumber value={this.state.item.price.decimals} minimumIntegerDigits={2} maximumIntegerDigits={2} /></span>
                                             </span>
                                         </div>
                                     </IntlProvider>
+                                </div>
+                                <div className="item-button clear" >
+                                    Comprar
                                 </div>
                             </div>
                         </div>
