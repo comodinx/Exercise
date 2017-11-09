@@ -16,6 +16,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
     entry: [
+        'whatwg-fetch',
         './src/index.jsx'
     ],
     output: {
