@@ -1,5 +1,5 @@
-MeLi Exercise
-=============
+Exercise
+========
 
 Instalar
 --------
