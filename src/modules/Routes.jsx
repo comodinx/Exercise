@@ -8,7 +8,7 @@ import Items from '../components/Items/index.jsx';
 import ItemDetails from '../components/Items/Details/index.jsx';
 import NotFound from '../components/Commons/Errors/NotFound.jsx';
 
-const Routes = (props) => (
+const Routes = () => (
     <Router history={browserHistory} >
         <Switch>
             <Route path="/" exact component={App} />
