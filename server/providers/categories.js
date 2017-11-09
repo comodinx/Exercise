@@ -1,14 +1,12 @@
 'use strict';
 
 const P = require('bluebird');
-const _ = require('underscore');
 const e = require('../helpers/e');
 const request = require('../modules/request');
 
 const cache = {};
 
 class Categories {
-
     getCategories(id) {
         return P.bind(this)
             .then(() => {
@@ -21,7 +19,7 @@ class Categories {
                 return request
                     .get(`/categories/${id}`)
                     .then(body => {
-                        if (!body || body.error || !body.path_from_root) {
+                        if (!body || body.error || !body.path_from_root) {
                             throw new e.CancellationException();
                         }
                         return body.path_from_root;
@@ -32,7 +30,6 @@ class Categories {
                     });
             });
     }
-
 }
 
 module.exports = new Categories();

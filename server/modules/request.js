@@ -10,7 +10,6 @@ const DEFAULT_BASE_URL = config.get('request:baseUrl');
 const DEFAULT_TIMEOUT = config.get('request:timeout');
 
 class Request {
-
     constructor() {
         this.r = R.defaults({
             json: true,
@@ -29,12 +28,11 @@ class Request {
 
     request(method, options) {
         options = _.defaults(options || {}, {
-            method: method
+            method
         });
 
         return this.r(options);
     }
-
 }
 
 module.exports = new Request();

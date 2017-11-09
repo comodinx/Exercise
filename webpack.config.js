@@ -4,8 +4,8 @@ const webpack = require('webpack');
 
 let plugins = [
     new webpack.DefinePlugin({
-        'process.env': { 
-            NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
+        'process.env': {
+            NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
         }
     })
 ];
@@ -20,7 +20,7 @@ module.exports = {
         './src/index.jsx'
     ],
     output: {
-        path: __dirname + '/public/assets/js',
+        path: `${__dirname}/public/assets/js`,
         filename: 'bundle.js'
     },
     devtool: false,

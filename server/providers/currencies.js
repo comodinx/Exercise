@@ -7,7 +7,6 @@ const request = require('../modules/request');
 const cache = {};
 
 class Currencies {
-
     getCurrency(id) {
         return P.bind(this)
             .then(() => {
@@ -20,7 +19,7 @@ class Currencies {
                 return request
                     .get(`/currencies/${id}`)
                     .then(body => {
-                        if (!body || body.error) {
+                        if (!body || body.error) {
                             throw new e.CancellationException();
                         }
                         return body;
@@ -35,7 +34,6 @@ class Currencies {
     parseCurrency(currency) {
         return currency.symbol;
     }
-
 }
 
 module.exports = new Currencies();

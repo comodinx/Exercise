@@ -3,47 +3,61 @@
 const del = require('del');
 const gulp = require('gulp');
 const sass = require('gulp-sass');
+const eslint = require('gulp-eslint');
 const nodemon = require('gulp-nodemon');
 const webpack = require('webpack-stream');
-const webpackConfig = require(`./webpack.config`);
+const webpackConfig = require('./webpack.config');
 
+// Code clean
+// ----------------------------------------------------
+
+gulp.task('lint', () => {
+    return gulp
+        .src([
+            '**/*.js',
+            '!node_modules/**',
+            '!test/**'
+        ])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
+});
 
 // Cleaning tasks
 // ----------------------------------------------------
 gulp.task('clean:css', () => {
-  return del([
+    return del([
         'public/assets/css/styles.css'
     ]);
 });
 
 gulp.task('clean:js', () => {
-  return del([
+    return del([
         'public/assets/js/bundle.js'
     ]);
 });
 
-
 // Building tasks
 // ----------------------------------------------------
-gulp.task('js', ['clean:js'], () => {
-  return gulp.src('src/**/*.jsx')
-    .pipe(webpack(webpackConfig))
-    .pipe(gulp.dest('public/assets/js'));
+gulp.task('js', ['lint', 'clean:js'], () => {
+    return gulp
+        .src('src/**/*.jsx')
+        .pipe(webpack(webpackConfig))
+        .pipe(gulp.dest('public/assets/js'));
 });
 
 gulp.task('css', ['clean:css'], () => {
-    return gulp.src('src/styles/styles.scss')
+    return gulp
+        .src('src/styles/styles.scss')
         .pipe(
             sass({
                 outputStyle: 'compressed'
-            })
-            .on('error', sass.logError)
+            }).on('error', sass.logError)
         )
-        .pipe(gulp.dest('public/assets/css'))
+        .pipe(gulp.dest('public/assets/css'));
 });
 
 gulp.task('compile', ['js', 'css']);
-
 
 // Tasks of Running
 // ----------------------------------------------------
@@ -57,7 +71,7 @@ gulp.task('start', ['compile'], () => {
         ext: 'js',
         script: 'index.js',
         env: {
-            NODE_ENV: process.env.NODE_ENV || 'development'
+            NODE_ENV: process.env.NODE_ENV || 'development'
         },
         watch: [
             'index.js',
@@ -70,4 +84,4 @@ gulp.task('start', ['compile'], () => {
     });
 });
 
-gulp.task('default', ['compile', 'watch', 'start']);
+gulp.task('default', ['lint', 'compile', 'watch', 'start']);

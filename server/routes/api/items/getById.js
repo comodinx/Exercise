@@ -1,14 +1,15 @@
 'use strict';
 
+const http = require('orcorum').http;
 const itemsProvider = require('../../../providers/items');
 
 /**
  * Endpoint /api/items/:id
- * Method GET 
+ * Method GET
  * URL parameters
  *  · id (*) String. Item unique identifier (ID)
- *  
- * Response 
+ *
+ * Response
  *  · Success:
  *      HTTP/1.1 200 OK
  *      {
@@ -40,20 +41,20 @@ const itemsProvider = require('../../../providers/items');
  */
 module.exports = (req, res) => {
     if (!req.params || !req.params.id) {
-        return res.status(400).json({
+        return res.status(http.status.BAD_REQUEST).json({
             error: 'ID parameter is required'
         });
     }
 
-    itemsProvider
+    return itemsProvider
         .getItem(req.params.id)
         .then(result => {
             result.author = req.author;
-            res.status(200).json(result);
+            res.status(http.status.OK).json(result);
         })
         .catch(error => {
-            res.status(500).json({
-                error: error && error.message || (error || 'Internal Server Error').toString()
+            res.status(http.status.INTERNAL_SERVER_ERROR).json({
+                error: error && error.message || (error || 'Internal Server Error').toString()
             });
         });
 };

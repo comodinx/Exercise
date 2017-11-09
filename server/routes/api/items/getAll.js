@@ -1,14 +1,15 @@
 'use strict';
 
+const http = require('orcorum').http;
 const itemsProvider = require('../../../providers/items');
 
 /**
  * Endpoint /api/items
- * Method GET 
+ * Method GET
  * Query parameters
  *  · search (*) String. ¿Qué estás buscando?
- *  
- * Response 
+ *
+ * Response
  *  · Success:
  *      HTTP/1.1 200 OK
  *      {
@@ -42,20 +43,20 @@ const itemsProvider = require('../../../providers/items');
  */
 module.exports = (req, res) => {
     if (!req.query || !req.query.search || !req.query.search.trim()) {
-        return res.status(400).json({
+        return res.status(http.status.BAD_REQUEST).json({
             error: 'SEARCH query parameter is required'
         });
     }
 
-    itemsProvider
+    return itemsProvider
         .getItems(req.query.search)
         .then(result => {
             result.author = req.author;
-            res.status(200).json(result);
+            res.status(http.status.OK).json(result);
         })
         .catch(error => {
-            res.status(500).json({
-                error: error && error.message || (error || 'Internal Server Error').toString()
+            res.status(http.status.INTERNAL_SERVER_ERROR).json({
+                error: error && error.message || (error || 'Internal Server Error').toString()
             });
         });
 };

@@ -7,7 +7,6 @@ const NAME = config.get('author:name', 'Nicolas');
 const LASTNAME = config.get('author:lastname', 'Molina');
 
 class Middleware {
-
     get enabled() {
         return IS_ENABLED;
     }
@@ -23,7 +22,6 @@ class Middleware {
         };
         next();
     }
-
 }
 
 module.exports = new Middleware();

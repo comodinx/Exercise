@@ -14,12 +14,10 @@ const routes = require('./routes');
 const config = require('./config');
 const app = express();
 
-
 // Constants
 // ----------------------------------------------------
-const MODE = app.get('env') || 'development';
+const MODE = app.get('env') || 'development';
 const PORT = config.get('server:port', 3000);
-
 
 // Configure
 // ----------------------------------------------------
@@ -34,13 +32,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-
 // Cluters
 // ----------------------------------------------------
 if (cluster.enabled && !cluster.start()) {
     return;
 }
-
 
 // Middlewares
 // ----------------------------------------------------
@@ -51,14 +47,12 @@ _.each(_.sortBy(middlewares, 'weight'), middleware => {
     app.use(middleware.handler);
 });
 
-
 // Routes
 // ----------------------------------------------------
 app.use(routes);
 
-
 // Go
 // ----------------------------------------------------
 app.listen(PORT, () => {
-    console.log(`pid:${process.pid} listening on ${PORT} in ${MODE} mode`);
+    console.log(`pid:${process.pid} listening on ${PORT} in ${MODE} mode`); // eslint-disable-line no-console
 });
