@@ -17,8 +17,8 @@
     "lastname": "Molina"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/comodinx/Exercise.git"
+    "type": "git",
+    "url": "https://github.com/comodinx/Exercise.git"
   },
   "license": "ISC",
   "devDependencies": {
