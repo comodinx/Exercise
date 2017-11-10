@@ -29,11 +29,11 @@ class ItemDetails extends Component {
     }
 
     componentWillMount() {
-        this.fetchItem(this.state.idItem);
+        this.fetchItem();
     }
 
     fetchItem(id) {
-        fetch('/api/items/' + this.state.idItem)
+        fetch(`/api/items/${id || this.state.idItem}`)
             .then(res => res.json())
             .then(res => this.setState(res))
             .catch(error =>

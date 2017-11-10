@@ -34,14 +34,14 @@ class Items extends Component {
     }
 
     componentWillMount() {
-        this.fetchItems(this.state.search);
+        this.fetchItems();
     }
 
     fetchItems(query) {
         let search = query || this.state.search;
 
         if (ITEM_ID_PATTERN.test(search)) {
-            return browserHistory.replace('/items/' + search);
+            return browserHistory.replace(`/items/${search}`);
         }
 
         fetch(`/api/items?search=${search}`)
