@@ -34,11 +34,9 @@ app.use(bodyParser.urlencoded({
 
 // Cluters
 // ----------------------------------------------------
-(() => {
-    if (cluster.enabled && !cluster.start()) {
-        return;
-    }
-})();
+if (cluster.enabled && !cluster.start()) {
+    return;
+}
 
 // Middlewares
 // ----------------------------------------------------
