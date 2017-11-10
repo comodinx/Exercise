@@ -96,7 +96,7 @@ config
 Utilizar NVM
 ============
 
-Para utilizar nvm primero debemos descargarlo.
+Para utilizar `nvm` primero debemos descargarlo.
 
 ```sh
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
@@ -109,7 +109,7 @@ Luego, corremos el siguiente comando para instalar la versión correcta de NodeJ
 nvm install
 ```
 
-Por último, para correr la aplicación utilizando NVM, se hace de la siguiente manera:
+Por último, para correr la aplicación utilizando `nvm`, se hace de la siguiente manera:
 
 ##### Ejecutar modo *development*
 
@@ -136,5 +136,5 @@ nvm exec npm test
 [correr_development]: #modo-development
 [correr_production]: #modo-production
 [correr_tests]: #test
-[configuracion]: #configuracion
+[configuracion]: #configuración
 [utilizar_nvm]: #utilizar-nvm

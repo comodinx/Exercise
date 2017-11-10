@@ -10,6 +10,7 @@ class Header extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             search: this.props.search || ''
         };
@@ -27,7 +28,7 @@ class Header extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        var search = this.state.search;
+        let search = this.state.search;
 
         if (ITEM_ID_PATTERN.test(search)) {
             return browserHistory.push('/items/' + search, {

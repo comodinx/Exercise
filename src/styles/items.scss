@@ -54,10 +54,11 @@
                             color: $fontColor;
                             text-decoration: none;
 
-                            item-price-shipping {
+                            .item-price-shipping {
                                 margin-left: 15px;
                             }
                         }
+
                     }
                     .item-title {
                         padding-top: 32px;

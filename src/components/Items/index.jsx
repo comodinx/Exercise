@@ -25,13 +25,11 @@ class Items extends Component {
             let search = qs.parse((props.history.location || {}).search || '?search=').search || '';
 
             this.setState({
-                search: search,
+                search,
                 items: false
             });
 
-            setTimeout(() => {
-                this.fetchItems(search);
-            }, 250);
+            setTimeout(() => this.fetchItems(search), 250);
         }
     }
 
@@ -39,25 +37,21 @@ class Items extends Component {
         this.fetchItems(this.state.search);
     }
 
-    fetchItems(search) {
-        var search = this.state.search;
+    fetchItems(query) {
+        let search = query || this.state.search;
 
         if (ITEM_ID_PATTERN.test(search)) {
             return browserHistory.replace('/items/' + search);
         }
 
-        fetch('/api/items?search=' + search)
-            .then(res => {
-                return res.json();
-            })
-            .then(res => {
-                this.setState(res);
-            })
-            .catch(error => {
+        fetch(`/api/items?search=${search}`)
+            .then(res => res.json())
+            .then(res => this.setState(res))
+            .catch(error =>
                 this.setState({
                     error
-                });
-            });
+                })
+            );
     }
 
     render() {
@@ -73,9 +67,7 @@ class Items extends Component {
             <Layout>
                 <section className="items" >
                     <ul className="items-results" >
-                        {this.state.items.map(item => {
-                            return <Item item={item} key={item.id} />;
-                        })}
+                        {this.state.items.map(item => <Item item={item} key={item.id} /> )}
                     </ul>
                 </section>
             </Layout>

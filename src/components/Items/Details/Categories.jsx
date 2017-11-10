@@ -5,6 +5,7 @@ class Categories extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             categories: this.props.categories
         };
@@ -14,13 +15,11 @@ class Categories extends Component {
         return (
             <section className="categories" >
                 <ul className="categories-results" >
-                    {this.state.categories.map(category => {
-                        return (
-                            <li className="category" key={category.id}>
-                                <span className="category-name">{category.name}</span>
-                            </li>
-                        );
-                    })}
+                    {this.state.categories.map(category => (
+                        <li className="category" key={category.id}>
+                            <span className="category-name">{category.name}</span>
+                        </li>
+                    ))}
                 </ul>
             </section>
         );

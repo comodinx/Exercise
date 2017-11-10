@@ -1,19 +1,17 @@
 
 import React, { Component } from 'react';
-import ReactIntl, { IntlProvider, FormattedNumber, addLocaleData } from 'react-intl';
-import es from 'react-intl/locale-data/es';
+import ReactIntl, { IntlProvider, FormattedNumber } from 'react-intl';
 
 import Layout from '../../Commons/Layout.jsx';
 import Loader from '../../Commons/Loader.jsx';
 import NotFound from '../../Commons/Errors/NotFound.jsx';
 import Categories from './Categories.jsx';
 
-addLocaleData([...es]);
-
 class ItemDetails extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             idItem: this.props.match && this.props.match.params && this.props.match.params.id || ''
         };
@@ -26,9 +24,7 @@ class ItemDetails extends Component {
                 item: false
             });
 
-            setTimeout(() => {
-                this.fetchItem(props.match.params.id);
-            }, 250);
+            setTimeout(() => this.fetchItem(props.match.params.id), 250);
         }
     }
 
@@ -38,17 +34,13 @@ class ItemDetails extends Component {
 
     fetchItem(id) {
         fetch('/api/items/' + this.state.idItem)
-            .then(res => {
-                return res.json();
-            })
-            .then(res => {
-                this.setState(res);
-            })
-            .catch(error => {
+            .then(res => res.json())
+            .then(res => this.setState(res))
+            .catch(error =>
                 this.setState({
                     error
-                });
-            });
+                })
+            );
     }
 
     render() {
@@ -60,10 +52,10 @@ class ItemDetails extends Component {
             return <NotFound />;
         }
 
-        var categories = this.state.categories || [];
-        var hasStatus = true;
-        var description = null;
-        var condition = null;
+        let categories = this.state.categories || [];
+        let hasStatus = true;
+        let description = null;
+        let condition = null;
 
         if (this.state.item.description) {
             description = {__html: this.state.item.description};
