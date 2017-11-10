@@ -19,7 +19,24 @@ class ItemDetails extends Component {
         };
     }
 
+    componentWillReceiveProps(props) {
+        if (props && props.match && props.match.params && props.match.params.id) {
+            this.setState({
+                idItem: props.match.params.id,
+                item: false
+            });
+
+            setTimeout(() => {
+                this.fetchItem(props.match.params.id);
+            }, 250);
+        }
+    }
+
     componentWillMount() {
+        this.fetchItem(this.state.idItem);
+    }
+
+    fetchItem(id) {
         fetch('/api/items/' + this.state.idItem)
             .then(res => {
                 return res.json();

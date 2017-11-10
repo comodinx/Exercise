@@ -15,14 +15,31 @@ class Items extends Component {
     constructor(props) {
         super(props);
 
-        var location = (this.props && this.props.location) || (window && window.location) || {};
-
         this.state = {
-            search: qs.parse(location.search || '?search=').search || ''
+            search: qs.parse(((this.props && this.props.location) || (window && window.location) || {}).search || '?search=').search || ''
         };
     }
 
+    componentWillReceiveProps(props) {
+        if (props && props.history && props.history.location) {
+            let search = qs.parse((props.history.location || {}).search || '?search=').search || '';
+
+            this.setState({
+                search: search,
+                items: false
+            });
+
+            setTimeout(() => {
+                this.fetchItems(search);
+            }, 250);
+        }
+    }
+
     componentWillMount() {
+        this.fetchItems(this.state.search);
+    }
+
+    fetchItems(search) {
         var search = this.state.search;
 
         if (ITEM_ID_PATTERN.test(search)) {

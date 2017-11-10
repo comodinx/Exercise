@@ -30,9 +30,13 @@ class Header extends Component {
         var search = this.state.search;
 
         if (ITEM_ID_PATTERN.test(search)) {
-            return browserHistory.push('/items/' + search);
+            return browserHistory.push('/items/' + search, {
+                id: search
+            });
         }
-        browserHistory.push('/items?search=' + search);
+        browserHistory.push('/items?search=' + search, {
+            search
+        });
     }
 
     render() {

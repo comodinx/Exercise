@@ -4,10 +4,9 @@
   "description": "MeLi exercise",
   "main": "index.js",
   "scripts": {
-    "preinstall": "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash; source ~/.bashrc; nvm install; nvm use",
     "start": "NODE_ENV=production gulp compile; NODE_ENV=production node index",
-    "start:d": "source ~/.bashrc; NODE_ENV=development nvm exec gulp",
-    "test": "source ~/.bashrc; NODE_ENV=test nvm exec jest --coverage"
+    "start:d": "NODE_ENV=development gulp",
+    "test": "NODE_ENV=test jest --coverage"
   },
   "keywords": [
     "react",
@@ -77,7 +76,7 @@
     "coverageDirectory": "./test/coverage",
     "coverageThreshold": {
       "global": {
-        "branches": 75,
+        "branches": 70,
         "functions": 75,
         "lines": 75,
         "statements": 75

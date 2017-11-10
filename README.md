@@ -1,6 +1,17 @@
 Exercise
 ========
 
+Índice
+------
+
+* [Instalar][instalar].
+* [Correr][correr].
+    + [Development][correr_development].
+    + [Production][correr_production].
+    + [Test][correr_tests].
+* [Configuración][configuracion].
+* [Utilizar NVM][utilizar_nvm].
+
 Instalar
 --------
 
@@ -9,6 +20,8 @@ git clone https://github.com/comodinx/Exercise.git
 cd "Exercise"
 npm i
 ```
+
+> Nota: Se puede utilizar NVM para manejar la versión de NodeJS, y poder correr tanto los tests como el server con la misma versión de node.
 
 Correr
 ------
@@ -25,7 +38,7 @@ npm run start:d
 npm start
 ```
 
-##### Tests
+##### Test
 
 > Nota: Los test necesitas soporte especial para funciones asyncronicas, por lo tanto deben correr con node >= 8.2.x.
 
@@ -42,8 +55,8 @@ PORT={Número de puerto. (Por defecto: 3000, en modo producción: 8080)}
 
 ##### Configuraciones por archivos
 
-La configuración del proyecto esta ubicada en el siguiente directorio *_{proyect}/server/config/environment_*.
-Los archivos ubicados en el root de dicho directorio son las configuraciones por defecto. Las mismas, pueden ser sobre-escritas por entorno, ejemplo.
+La configuración del proyecto está ubicada en el siguiente directorio *_{proyect}/server/config/environment_*.
+Los archivos ubicados en el root de dicho directorio son las configuraciones por defecto. Las mismas, pueden ser sobreescritas por entorno, ejemplo.
 
 Si creamos tenemos un entorno *testing*, en el cual deseamos corre la aplicación en el puerto 4000, podemos crear la carpeta *testing* y el archivo *server.js* dentro de la misma, con el siguiente contenido.
 
@@ -62,7 +75,7 @@ config
   |  |-> testing
 ```
 
-La configuración actual, se encuentra estructurada de la siguientes manera. Ademas, la misma incluye configuraciones para producción:
+La configuración actual, se encuentra estructurada de la siguientes manera. Además, la misma incluye configuraciones para producción:
 
 ```
 config
@@ -80,4 +93,48 @@ config
   |  |-> request.js (herramienta para el manejo de peticiones a la API)
 ```
 
+Utilizar NVM
+============
 
+Para utilizar nvm primero debemos descargarlo.
+
+```sh
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+```
+
+Luego, corremos el siguiente comando para instalar la versión correcta de NodeJS.
+> Nota: en el proyecto ya se encuentra un archivo llamado *.nvmrc* el cual indica la versión de NodeJS que se debe utilizar. Por lo tanto, al correr el siguiente comando se va a instalar se va a descargar dicha versión
+
+```sh
+nvm install
+```
+
+Por último, para correr la aplicación utilizando NVM, se hace de la siguiente manera:
+
+##### Ejecutar modo *development*
+
+```sh
+nvm exec npm run start:d
+```
+
+##### Ejecutar modo *production*
+
+```sh
+nvm exec npm start
+```
+
+##### Ejecutar los tests
+
+```sh
+nvm exec npm test
+```
+
+
+<!-- deep links -->
+[instalar]: #instalar
+[correr]: #correr
+[correr_development]: #modo-development
+[correr_production]: #modo-production
+[correr_tests]: #test
+[configuracion]: #configuracion
+[utilizar_nvm]: #utilizar-nvm
