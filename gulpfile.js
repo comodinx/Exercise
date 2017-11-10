@@ -11,12 +11,13 @@ const webpackConfig = require('./webpack.config');
 // Code clean
 // ----------------------------------------------------
 
-gulp.task('lint', () => {
+gulp.task('lint:js', () => {
     return gulp
         .src([
-            '**/*.js',
+            '*.js',
+            'server/**/*.js',
             '!node_modules/**',
-            '!test/**'
+            '!test/**/*.js'
         ])
         .pipe(eslint())
         .pipe(eslint.format())
@@ -39,7 +40,7 @@ gulp.task('clean:js', () => {
 
 // Building tasks
 // ----------------------------------------------------
-gulp.task('js', ['lint', 'clean:js'], () => {
+gulp.task('js', ['lint:js', 'clean:js'], () => {
     return gulp
         .src('src/**/*.jsx')
         .pipe(webpack(webpackConfig))
@@ -84,4 +85,4 @@ gulp.task('start', ['compile'], () => {
     });
 });
 
-gulp.task('default', ['lint', 'compile', 'watch', 'start']);
+gulp.task('default', ['lint:js', 'compile', 'watch', 'start']);
