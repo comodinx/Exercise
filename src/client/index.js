@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from '../shared/App';
 
 render(
-    <BrowserRouter forceRefresh={true} >
+    <BrowserRouter>
         <App />
     </BrowserRouter>,
     document.getElementById('root')

@@ -11,7 +11,8 @@ const routes = [{
     path: '/items/:id',
     component: ItemDetails
 }, {
-    path: new RegExp('^\/items(?:\/(?=.*))?(?=\/|.*)', 'i'),
+    // path: new RegExp('^\/items(?:\/(?=.*))?(?=\/|.*)', 'i'),
+    path: '/items',
     component: Items
 }, {
     component: NotFound

@@ -6,30 +6,33 @@ import serialize from 'serialize-javascript';
 import { Helmet } from 'react-helmet';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter, matchPath } from 'react-router-dom';
-// import config from '../../config';
+import config from '../../config';
 import routes from '../../../shared/routes';
 import App from '../../../shared/app';
 
-// const API_BASE_URL = config.getBaseURL();
+const DEFAULT_API_OPTIONS = {
+    baseUrl: config.getBaseURL()
+};
 
 let router = new express.Router();
 
-function getBaseHTML(markup, context) {
+function getHTML(markup, context) {
     return `
         <!DOCTYPE html>
         <html>
             <head>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta charset="utf-8" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-                <link rel="shortcut icon" href="/favicon.ico">
-                <link type="text/css" rel="stylesheet" href="/assets/css/styles.css">
+                <link rel="shortcut icon" href="/favicon.ico" />
+                <link type="text/css" rel="stylesheet" href="/assets/css/styles.css" />
 
                 <title>Exercise</title>
 
                 <script src="/assets/js/bundle.js" defer></script>
                 <script>window.__initialData__ = ${serialize(context.initialData)};</script>
+                <script>window.__apiOptions__ = ${serialize(context.api)};</script>
             </head>
 
             <body>
@@ -51,21 +54,24 @@ function getArgs(req, component) {
     return args;
 }
 
+function getContext(data, seo) {
+    return {
+        api: DEFAULT_API_OPTIONS,
+        initialData: data,
+        seo
+    };
+}
+
 function handler(req, res, next) {
-    const activeRoute = routes.find(route => matchPath(req.url, route));
+    const activeRoute = routes.find(route => matchPath(req.path, route));
     const args = getArgs(req, activeRoute.component);
 
-    P.resolve(activeRoute.component.fetchInitialData && activeRoute.component.fetchInitialData(args))
+    P.resolve(activeRoute.component.fetchInitialData && activeRoute.component.fetchInitialData(args, DEFAULT_API_OPTIONS))
     .then(data => {
         return new P(resolve => {
             return P.resolve(activeRoute.component.prepareSeo && activeRoute.component.prepareSeo(data, args))
-                .then(seo => resolve({
-                    initialData: data,
-                    seo
-                }))
-                .catch(() => resolve({
-                    initialData: data
-                }));
+                .then(seo => resolve(getContext(data, seo)))
+                .catch(() => resolve(getContext(data)));
         });
     })
     .then(context => {
@@ -79,7 +85,7 @@ function handler(req, res, next) {
             </StaticRouter>
         );
 
-        res.send(getBaseHTML(markup, context));
+        res.send(getHTML(markup, context));
     })
     .catch(next);
 }

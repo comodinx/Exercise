@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 
@@ -40,8 +41,8 @@ class Header extends Component {
         return (
             <header className="header header-sticky">
                 <div className="bounds">
-                    <a className="logo" href="/"></a>
-                    <form className="search" onSubmit={this.handleSubmit} >
+                    <Link className="logo" to="/" />
+                    <form className="search" action="/items" method="GET" onSubmit={this.handleSubmit} >
                         <input defaultValue={this.search} tabIndex="1" type="text" className="search-input" name="search" autoFocus={true} placeholder="Nunca dejes de buscar" onChange={this.handleChange} />
                         <button type="submit" className="search-btn">
                             <img width="20" height="20" src="/assets/img/ic_search.png" className="search-btn-icon" />

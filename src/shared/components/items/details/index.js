@@ -61,8 +61,8 @@ class ItemDetails extends Component {
         }
     }
 
-    static fetchInitialData(id) {
-        return provider.getItem(id);
+    static fetchInitialData(id, options) {
+        return provider.getItem(id, options);
     }
 
     static prepareArgsForFetchInitialData(options) {

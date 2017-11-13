@@ -38,14 +38,6 @@ npm run start:d
 npm start
 ```
 
-##### Test
-
-> Nota: Los test necesitas soporte especial para funciones asyncronicas, por lo tanto deben correr con node >= 8.2.x.
-
-```sh
-npm test
-```
-
 Configuración
 -------------
 

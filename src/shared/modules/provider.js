@@ -1,13 +1,26 @@
 import React from 'react';
 
 class Provider {
-    getItems(search) {
-        return fetch(`http://localhost:3000/api/items?search=${search}`)
+    getOptions(options) {
+        if (!options && __isBrowser__) {
+            options = window.__apiOptions__ || {
+                baseUrl: 'http://localhost:3000'
+            };
+        }
+        return options;
+    }
+
+    getItems(search, options) {
+        const { baseUrl } = this.getOptions(options);
+
+        return fetch(`${baseUrl}/api/items?search=${search}`)
             .then(res => res.json());
     }
 
-    getItem(id) {
-        return fetch(`http://localhost:3000/api/items/${id}`)
+    getItem(id, options) {
+        const { baseUrl } = this.getOptions(options);
+
+        return fetch(`${baseUrl}/api/items/${id}`)
             .then(res => res.json());
     }
 }
