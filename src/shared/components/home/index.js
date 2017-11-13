@@ -7,7 +7,7 @@ import Layout from '../commons/layout';
 class Home extends Component {
 
     render() {
-        const { props = {} } = this;
+        const { props } = this;
 
         return (
             <Layout {...props} >

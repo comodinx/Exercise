@@ -97,6 +97,9 @@ class Items extends Component {
     }
 
     static prepareSeo(data, search) {
+        if (!search) {
+            return;
+        }
         return seo.get('items', { search });
     }
 

@@ -5,7 +5,7 @@ import Layout from './layout';
 class Loader extends Component {
 
     render() {
-        const { props = {} } = this;
+        const { props } = this;
 
         return (
             <Layout {...props} >

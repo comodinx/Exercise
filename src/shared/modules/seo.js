@@ -34,7 +34,7 @@ const METAS = {
             title
         };
     },
-    'error404': options => {
+    'error': options => {
         return {
             title: 'Exersice - Donde comprar y vender de todo'
         };

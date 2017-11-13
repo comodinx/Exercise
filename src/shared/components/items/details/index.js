@@ -72,6 +72,9 @@ class ItemDetails extends Component {
     }
 
     static prepareSeo(data) {
+        if (!data || !data.item) {
+            return;
+        }
         return seo.get('item', data);
     }
 
