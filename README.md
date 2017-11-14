@@ -21,7 +21,7 @@ cd "Exercise"
 npm i
 ```
 
-> Nota: Se puede utilizar NVM para manejar la versión de NodeJS, y poder correr tanto los tests como el server con la misma versión de node.
+> Nota: Se puede [utilizar NVM][utilizar_nvm] para manejar la versión de NodeJS, y poder correr tanto los tests como el server con la misma versión de node.
 
 Correr
 ------
