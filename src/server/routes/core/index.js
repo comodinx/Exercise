@@ -17,9 +17,11 @@ const DEFAULT_API_OPTIONS = {
 let router = new express.Router();
 
 function getHTML(markup, context) {
+    const helmet = Helmet.renderStatic();
+
     return `
         <!DOCTYPE html>
-        <html>
+        <html ${helmet.htmlAttributes.toString()}>
             <head>
                 <meta charset="utf-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -28,14 +30,15 @@ function getHTML(markup, context) {
                 <link rel="shortcut icon" href="/favicon.ico" />
                 <link type="text/css" rel="stylesheet" href="/assets/css/styles.css" />
 
-                <title>Exercise</title>
+                ${helmet.title.toString()}
+                ${helmet.meta.toString()}
+                ${helmet.link.toString()}
 
                 <script src="/assets/js/bundle.js" defer></script>
                 <script>window.__initialData__ = ${serialize(context.initialData)};</script>
                 <script>window.__apiOptions__ = ${serialize(context.api)};</script>
             </head>
-
-            <body>
+            <body ${helmet.bodyAttributes.toString()}>
                 <div id="root">${markup}</div>
             </body>
         </html>
