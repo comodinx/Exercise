@@ -104,7 +104,7 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | b
 ```
 
 Luego, corremos el siguiente comando para instalar la versión correcta de NodeJS.
-> Nota: en el proyecto ya se encuentra un archivo llamado *.nvmrc* el cual indica la versión de NodeJS que se debe utilizar. Por lo tanto, al correr el siguiente comando se va a instalar se va a descargar dicha versión
+> Nota: en el proyecto ya se encuentra un archivo llamado *.nvmrc* el cual indica la versión de NodeJS que se debe utilizar. Por lo tanto, al correr el siguiente comando se va a instalar dicha versión
 
 ```sh
 nvm install
