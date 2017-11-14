@@ -55,7 +55,7 @@ const clientConfig = {
         rules: [{
             test: /js$/,
             loader: 'babel-loader',
-            exclude: /(node_modules)/,
+            exclude: /node_modules/,
             query: {
                 presets: [
                     'react-app'
@@ -83,7 +83,7 @@ const serverConfig = {
         rules: [{
             test: /js$/,
             loader: 'babel-loader',
-            exclude: /(node_modules)/,
+            exclude: /node_modules/,
             query: {
                 presets: [
                     'react-app'

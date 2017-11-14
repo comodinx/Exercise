@@ -1,9 +1,11 @@
 // Imports
 // ----------------------------------------------------
 import _ from 'underscore';
+import cors from 'cors';
 import express from 'express';
 import favicon from 'serve-favicon';
 import bodyParser from 'body-parser';
+import compression from 'compression';
 import middlewares from './middlewares';
 import errorHandler from './modules/errorHandler';
 import cluster from './modules/cluster';
@@ -27,6 +29,9 @@ const PORT = config.get('server:port', 3000);
 app.enable('trust proxy');
 app.disable('x-powered-by');
 app.use(favicon('public/favicon.ico'));
+app.use(compression());
+app.use(cors());
+app.options('*', cors());
 app.use(express.static('public'));
 app.use(bodyParser.raw());
 app.use(bodyParser.text());
