@@ -47,6 +47,8 @@ gulp.task('clean:css', () => {
     ]);
 });
 
+gulp.task('clean', ['clean:js:client', 'clean:js:server', 'clean:css']);
+
 // Building tasks
 // ----------------------------------------------------
 gulp.task('js:client', ['clean:js:client', 'lint:js'], () => {
