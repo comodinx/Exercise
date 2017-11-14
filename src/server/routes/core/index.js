@@ -1,4 +1,5 @@
 import P from 'bluebird';
+import _ from 'underscore';
 import React from 'react';
 import express from 'express';
 import serialize from 'serialize-javascript';
@@ -61,7 +62,7 @@ function getContext(data, seo) {
     };
 }
 
-router.get('*', (req, res, next) => {
+function handler(req, res, next) {
     const activeRoute = routes.find(route => matchPath(req.path, route));
     const args = getArgs(req, activeRoute.component);
 
@@ -88,6 +89,8 @@ router.get('*', (req, res, next) => {
         res.send(getHTML(markup, context));
     })
     .catch(next);
-});
+}
+
+_.each(routes, route => router.get(route.path || '*', handler));
 
 export default router;

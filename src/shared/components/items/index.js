@@ -104,14 +104,14 @@ class Items extends Component {
     }
 
     render() {
-        const { props = {} } = this;
+        const { props } = this;
         const { error, items, search } = this.state;
 
         if (!error && !items) {
-            return <Loader />;
+            return <Loader {...props} />;
         }
         if (error || !items || !items.length) {
-            return <Empty />;
+            return <Empty {...props} />;
         }
         return (
             <Layout {...props} >

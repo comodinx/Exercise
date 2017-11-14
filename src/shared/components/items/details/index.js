@@ -79,14 +79,14 @@ class ItemDetails extends Component {
     }
 
     render() {
-        const { props = {} } = this;
+        const { props } = this;
         const { error, item, categories = [] } = this.state;
 
         if (!error && !item) {
-            return <Loader />;
+            return <Loader {...props} />;
         }
         if (error || !item) {
-            return <NotFound />;
+            return <NotFound {...props} />;
         }
         return (
             <Layout {...props} >
