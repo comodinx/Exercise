@@ -1,4 +1,3 @@
-import React from 'react';
 import status from '../helpers/http/status';
 
 class ErrorHandler {
@@ -6,7 +5,7 @@ class ErrorHandler {
         this.handler = this.handler.bind(this);
     }
 
-    handler(error, req, res, next) {
+    handler(error, req, res) {
         if (process.env.NODE_ENV === 'development') {
             console.error(error, error && error.stack || '');
         }

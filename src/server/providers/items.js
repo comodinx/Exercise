@@ -3,7 +3,7 @@ import e from '../helpers/e';
 import request from '../modules/request';
 import config from '../config';
 import categoriesProvider from './categories';
-import currenciesProvider from './currencies';
+// import currenciesProvider from './currencies';
 
 const LIMIT_ON_LISTING = config.get('items:limitOnListing', 4);
 

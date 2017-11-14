@@ -1,5 +1,3 @@
-import React from 'react';
-
 class Provider {
     getItems(search, options) {
         const { baseUrl = '' } = (options || {});

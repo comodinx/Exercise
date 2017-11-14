@@ -1,4 +1,3 @@
-import React from 'react';
 import numeral from 'numeral';
 
 const METAS = {
@@ -34,7 +33,7 @@ const METAS = {
             title
         };
     },
-    'error': options => {
+    'error': () => {
         return {
             title: 'Exersice - Donde comprar y vender de todo'
         };
@@ -49,7 +48,7 @@ const DEFAULT_METAS = () => {
             content: 'La comunidad de compra y venta online más grande de América Latina.'
         }]
     };
-}
+};
 
 class Seo {
     get(name, options) {

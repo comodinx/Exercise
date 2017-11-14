@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import ReactIntl, { IntlProvider, FormattedNumber } from 'react-intl';
+import { IntlProvider, FormattedNumber } from 'react-intl';
 
 class Item extends Component {
 

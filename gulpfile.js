@@ -3,11 +3,26 @@
 const del = require('del');
 const gulp = require('gulp');
 const sass = require('gulp-sass');
+const eslint = require('gulp-eslint');
 const nodemon = require('gulp-nodemon');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 const webpack = require('webpack-stream');
 const webpackConfig = require('./webpack.config');
+
+// Code clean
+// ----------------------------------------------------
+gulp.task('lint:js', () => {
+    return gulp
+        .src([
+            'src/**/*.js',
+            '!node_modules/**',
+            '!test/**/*.js'
+        ])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
+});
 
 // Cleaning tasks
 // ----------------------------------------------------
@@ -34,7 +49,7 @@ gulp.task('clean:css', () => {
 
 // Building tasks
 // ----------------------------------------------------
-gulp.task('js:client', ['clean:js:client'], () => {
+gulp.task('js:client', ['clean:js:client', 'lint:js'], () => {
     return gulp
         .src('src/client/**/*.js')
         .pipe(webpack({
@@ -43,7 +58,7 @@ gulp.task('js:client', ['clean:js:client'], () => {
         .pipe(gulp.dest('public/assets/js'));
 });
 
-gulp.task('js:server', ['clean:js:server'], () => {
+gulp.task('js:server', ['clean:js:server', 'lint:js'], () => {
     return gulp
         .src('src/server/**/*.js')
         .pipe(webpack({
@@ -52,7 +67,7 @@ gulp.task('js:server', ['clean:js:server'], () => {
         .pipe(gulp.dest('./'));
 });
 
-gulp.task('js', ['js:client', 'js:server']);
+gulp.task('js', ['lint:js', 'js:client', 'js:server']);
 
 gulp.task('css', ['clean:css'], () => {
     return gulp

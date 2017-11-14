@@ -10,7 +10,6 @@ import { addLocaleData } from 'react-intl';
 import es from 'react-intl/locale-data/es';
 
 import routes from '../routes';
-import Header from '../components/commons/header';
 
 addLocaleData([...es]);
 

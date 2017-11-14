@@ -52,7 +52,8 @@ function set(target, keys, value) {
     keys.every((key, index) => {
         if (keys.length === (index + 1)) {
             obj[key] = value;
-        } else {
+        }
+        else {
             obj[key] = {};
             obj = obj[key];
         }

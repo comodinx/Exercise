@@ -28,7 +28,7 @@ class Items extends Component {
 
         let initialData;
 
-        if (__isBrowser__) {
+        if (__isBrowser__) { // eslint-disable-line no-undef
             initialData = window.__initialData__;
             delete window.__initialData__;
         }
@@ -40,6 +40,26 @@ class Items extends Component {
             search: qs.parse(((this.props && this.props.location) || {}).search || '?search=').search || '',
             items: (initialData || {}).items
         };
+    }
+
+    componentDidMount() {
+        if (!this.state.items) {
+            const { history } = this.context.router;
+            const { api = {} } = this.context;
+            const search = this.state.search;
+
+            if (ITEM_ID_PATTERN.test(search)) {
+                return history.push(`/items/${search}`);
+            }
+
+            Items.fetchInitialData(search, api)
+                .then(res => this.setState(res))
+                .catch(error =>
+                    this.setState({
+                        error
+                    })
+                );
+        }
     }
 
     componentWillReceiveProps(props) {
@@ -62,27 +82,7 @@ class Items extends Component {
                     this.setState({
                         error
                     })
-                ), 250);
-        }
-    }
-
-    componentDidMount() {
-        if (!this.state.items) {
-            const { history } = this.context.router;
-            const { api = {} } = this.context;
-            const search = this.state.search;
-
-            if (ITEM_ID_PATTERN.test(search)) {
-                return history.push(`/items/${search}`);
-            }
-
-            Items.fetchInitialData(search, api)
-                .then(res => this.setState(res))
-                .catch(error =>
-                    this.setState({
-                        error
-                    })
-                );
+                ), 250); // eslint-disable-line no-magic-numbers
         }
     }
 

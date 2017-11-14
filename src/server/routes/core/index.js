@@ -1,5 +1,4 @@
 import P from 'bluebird';
-import _ from 'underscore';
 import React from 'react';
 import express from 'express';
 import serialize from 'serialize-javascript';

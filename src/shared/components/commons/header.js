@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 
 const ITEM_ID_PATTERN = /^MLA\d+$/;

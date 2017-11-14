@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 import seo from '../../modules/seo';
 
 import Layout from '../commons/layout';

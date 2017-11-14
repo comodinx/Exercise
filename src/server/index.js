@@ -26,7 +26,7 @@ const PORT = config.get('server:port', 3000);
 // ----------------------------------------------------
 app.enable('trust proxy');
 app.disable('x-powered-by');
-app.use(favicon(`public/favicon.ico`));
+app.use(favicon('public/favicon.ico'));
 app.use(express.static('public'));
 app.use(bodyParser.raw());
 app.use(bodyParser.text());

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import ReactIntl, { IntlProvider, FormattedNumber } from 'react-intl';
-
-import Categories from './categories';
+import { IntlProvider, FormattedNumber } from 'react-intl';
 
 class Item extends Component {
 
@@ -43,7 +41,7 @@ class Item extends Component {
                                         <span>{condition}</span>
                                     }
                                     {item.sold_quantity > 0 &&
-                                        <span>{(condition ? item.price.decimals : "") + item.sold_quantity + " vendidos"}</span>
+                                        <span>{(condition ? item.price.decimals : '') + item.sold_quantity + ' vendidos'}</span>
                                     }
                                 </div>
                             }

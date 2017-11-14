@@ -15,7 +15,7 @@ class ItemDetails extends Component {
 
         let initialData;
 
-        if (__isBrowser__) {
+        if (__isBrowser__) { // eslint-disable-line no-undef
             initialData = window.__initialData__;
             delete window.__initialData__;
         }
@@ -32,6 +32,18 @@ class ItemDetails extends Component {
         };
     }
 
+    componentDidMount() {
+        if (!this.state.item) {
+            ItemDetails.fetchInitialData(this.state.idItem)
+                .then(res => this.setState(res))
+                .catch(error =>
+                    this.setState({
+                        error
+                    })
+                );
+        }
+    }
+
     componentWillReceiveProps(props) {
         if (props && props.match && props.match.params && props.match.params.id) {
             this.setState({
@@ -45,19 +57,7 @@ class ItemDetails extends Component {
                     this.setState({
                         error
                     })
-                ), 250);
-        }
-    }
-
-    componentDidMount() {
-        if (!this.state.item) {
-            ItemDetails.fetchInitialData(this.state.idItem)
-                .then(res => this.setState(res))
-                .catch(error =>
-                    this.setState({
-                        error
-                    })
-                );
+                ), 250); // eslint-disable-line no-magic-numbers
         }
     }
 
