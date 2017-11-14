@@ -11,7 +11,7 @@ global.fetch = jest.fn().mockImplementation(url => Promise.resolve({
     ok: true,
     Id: '1',
     json: () => {
-        if (url.startsWith('/api/items?search=error') || url.startsWith('/api/items/error')) {
+        if (url.startsWith('/api/items?search=error') || url.startsWith('/api/items/error')) {
             throw new Error('Force error');
         }
         else if (url.startsWith('/api/items?search=empty')) {
@@ -23,6 +23,9 @@ global.fetch = jest.fn().mockImplementation(url => Promise.resolve({
         return global.mockObjects.item;
     }
 }));
+
+// Configure constans
+global.__isBrowser__ = true;
 
 // Configure static objects
 global.mockObjects = {};
