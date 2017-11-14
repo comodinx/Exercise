@@ -62,11 +62,12 @@ function getContext(data, seo) {
     };
 }
 
-function handler(req, res, next) {
+router.get('*', (req, res, next) => {
     const activeRoute = routes.find(route => matchPath(req.path, route));
     const args = getArgs(req, activeRoute.component);
 
-    P.resolve(activeRoute.component.fetchInitialData && activeRoute.component.fetchInitialData(args, DEFAULT_API_OPTIONS))
+    P.bind(this)
+    .then(() => P.resolve(activeRoute.component.fetchInitialData && activeRoute.component.fetchInitialData(args, DEFAULT_API_OPTIONS)))
     .then(data => {
         return new P(resolve => {
             return P.resolve(activeRoute.component.prepareSeo && activeRoute.component.prepareSeo(data, args))
@@ -88,8 +89,6 @@ function handler(req, res, next) {
         res.send(getHTML(markup, context));
     })
     .catch(next);
-}
-
-_.each(routes, route => router.get(route.path || '*', handler));
+});
 
 export default router;

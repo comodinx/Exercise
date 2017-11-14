@@ -1,11 +1,12 @@
 'use strict';
 
 const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const devtool = IS_PRODUCTION ? false : 'cheap-module-source-map';
 
-let plugins = [
+let pluginsClient = [
     new webpack.BannerPlugin({
         banner: '__isBrowser__ = true;',
         raw: true,
@@ -18,8 +19,27 @@ let plugins = [
     })
 ];
 
+let pluginsServer = [
+    new webpack.BannerPlugin({
+        banner: "__isBrowser__ = false;",
+        raw: true,
+        include: /\.js$/
+    })
+];
+
 if (IS_PRODUCTION) {
-    plugins.push(new webpack.optimize.UglifyJsPlugin());
+    const plugin = new UglifyJSPlugin({
+        parallel: true,
+        uglifyOptions: {
+            compress: true,
+            output: {
+                comments: false
+            }
+        }
+    });
+
+    pluginsClient.push(plugin);
+    pluginsServer.push(plugin);
 }
 
 const clientConfig = {
@@ -47,7 +67,7 @@ const clientConfig = {
         warnings: false
     },
     watch: false,
-    plugins,
+    plugins: pluginsClient,
     devtool
 };
 
@@ -75,13 +95,7 @@ const serverConfig = {
         warnings: false
     },
     watch: false,
-    plugins: [
-        new webpack.BannerPlugin({
-            banner: "__isBrowser__ = false;",
-            raw: true,
-            include: /\.js$/
-        })
-    ],
+    plugins: pluginsServer,
     devtool
 };
 

@@ -5,13 +5,14 @@ import express from 'express';
 import favicon from 'serve-favicon';
 import bodyParser from 'body-parser';
 import middlewares from './middlewares';
+import errorHandler from './modules/errorHandler';
 import cluster from './modules/cluster';
 import routes from './routes';
 import config from './config';
 import sourceMapSupport from 'source-map-support';
 
 if (process.env.NODE_ENV !== 'production') {
-  sourceMapSupport.install();
+    sourceMapSupport.install();
 }
 
 const app = express();
@@ -50,6 +51,7 @@ if (!cluster.enabled || cluster.start()) {
     // Routes
     // ----------------------------------------------------
     app.use(routes);
+    app.use(errorHandler.handler);
 
     // Go
     // ----------------------------------------------------

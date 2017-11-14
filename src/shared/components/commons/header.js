@@ -25,7 +25,10 @@ class Header extends Component {
     }
 
     handleChange(event) {
+        event.preventDefault();
+
         this.search = event.target.value;
+        return true;
     }
 
     handleSubmit(event) {
@@ -35,6 +38,7 @@ class Header extends Component {
         const search = this.search;
 
         history.push(ITEM_ID_PATTERN.test(search) ? `/items/${search}` : `/items?search=${search}`);
+        return false;
     }
 
     render() {
