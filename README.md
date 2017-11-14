@@ -97,6 +97,7 @@ Utilizar NVM
 ============
 
 Para utilizar `nvm` primero debemos descargarlo.
+> Nota: para obtener información completa sobre `nvm` puede hacer [click aquí][nvm_site]
 
 ```sh
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
@@ -138,3 +139,4 @@ nvm exec npm test
 [correr_tests]: #test
 [configuracion]: #configuración
 [utilizar_nvm]: #utilizar-nvm
+[nvm_site]: http://nvm.sh
