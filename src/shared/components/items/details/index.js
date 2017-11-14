@@ -48,7 +48,8 @@ class ItemDetails extends Component {
         if (props && props.match && props.match.params && props.match.params.id) {
             this.setState({
                 idItem: props.match.params.id,
-                item: false
+                item: false,
+                error: false
             });
 
             setTimeout(() => ItemDetails.fetchInitialData(props.match.params.id)
@@ -90,7 +91,7 @@ class ItemDetails extends Component {
         }
         return (
             <Layout {...props} >
-                <Helmet {...seo.get('item', { item, categories })} />
+                <Helmet {...ItemDetails.prepareSeo({ item, categories })} />
                 {categories.length > 0 &&
                     <Categories categories={categories} />
                 }

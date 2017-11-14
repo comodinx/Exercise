@@ -36,7 +36,6 @@ function getHTML(markup, context) {
 
                 <script src="/assets/js/bundle.js" defer></script>
                 <script>window.__initialData__ = ${serialize(context.initialData)};</script>
-                <script>window.__apiOptions__ = ${serialize(context.api)};</script>
             </head>
             <body ${helmet.bodyAttributes.toString()}>
                 <div id="root">${markup}</div>

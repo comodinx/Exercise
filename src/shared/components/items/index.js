@@ -45,14 +45,13 @@ class Items extends Component {
     componentDidMount() {
         if (!this.state.items) {
             const { history } = this.context.router;
-            const { api = {} } = this.context;
             const search = this.state.search;
 
             if (ITEM_ID_PATTERN.test(search)) {
                 return history.push(`/items/${search}`);
             }
 
-            Items.fetchInitialData(search, api)
+            Items.fetchInitialData(search)
                 .then(res => this.setState(res))
                 .catch(error =>
                     this.setState({
@@ -73,7 +72,8 @@ class Items extends Component {
 
             this.setState({
                 search: search,
-                items: false
+                items: false,
+                error: false
             });
 
             setTimeout(() => Items.fetchInitialData(search)
@@ -115,7 +115,7 @@ class Items extends Component {
         }
         return (
             <Layout {...props} >
-                <Helmet {...seo.get('items', { search })} />
+                <Helmet {...Items.prepareSeo(null, search)} />
                 <ItemsList items={items} />
             </Layout>
         );

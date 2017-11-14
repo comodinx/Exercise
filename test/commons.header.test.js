@@ -32,6 +32,19 @@ describe('Test <Header /> Component class', () => {
         expect(spySubmit).toHaveBeenCalled();
     });
 
+    test('Header submit event redirect to item page', () => {
+        const props = {
+            search: 'MLA001'
+        };
+        const spySubmit = jest.spyOn(Header.prototype, 'handleSubmit');
+        const component = getComponent({}, props);
+        const wrapper = mount(component);
+
+        wrapper.find('form').simulate('submit', global.mockObjects.event);
+        expect(spySubmit).toHaveBeenCalled();
+        expect(wrapper.instance().props.children.props.search).toEqual(props.search);
+    });
+
     test('Header state search value', () => {
         const props = {
             search: 'autos'

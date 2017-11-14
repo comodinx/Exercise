@@ -27,12 +27,12 @@ describe('Test <Items /> Component class', () => {
             }
         };
 
-        const spy = jest.spyOn(Items.prototype, 'render');
+        const spy = jest.spyOn(Items, 'fetchInitialData');
         const component = getComponent({}, props);
         const wrapper = mount(component);
 
         wrapper.update();
-        expect(spy).toHaveBeenCalled();
+        expect(spy).not.toHaveBeenCalled();
     });
 
     test('Items render empty function', () => {
