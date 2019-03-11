@@ -1,6 +1,8 @@
 // Polyfills
 import 'intl';
 import 'intl/locale-data/jsonp/es.js';
+import PromisePolyfill from 'es6-promise';
+PromisePolyfill.polyfill();
 import 'isomorphic-fetch';
 
 // Imports

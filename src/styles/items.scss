@@ -39,6 +39,7 @@
                         @include object-fit();
                     }
                 }
+
                 .item-detail {
                     width: 75%;
                     height: 160px;
@@ -46,24 +47,32 @@
                     display: inline-block;
                     overflow: hidden;
 
-                    .item-price {
+                    .item-detail-header {
                         position: relative;
                         
-                        .item-price-link {
+                        .item-price {
                             font-size: 24px;
                             color: $fontColor;
                             text-decoration: none;
 
-                            .item-price-shipping {
+                            .item-shipping {
                                 margin-left: 15px;
                             }
-                        }
 
+                            .item-location {
+                                color: $fontLightColor;
+                                font-size: 12px;
+                                float: right;
+                                position: relative;
+                                top: 8px;
+                            }
+                        }
                     }
-                    .item-title {
+
+                    .item-detail-body {
                         padding-top: 32px;
 
-                        .item-title-link {
+                        .item-title {
                             font-size: 18px;
                             color: $fontColor;
                             text-decoration: none;
@@ -78,7 +87,7 @@
 .item-page {
     width: 100%;
     height: 100%;
-    margin: 20px 0 0 0;
+    margin: 16px 0 0 0;
     background-color: white;
     overflow: hidden;
     @include border-radius(10px);
@@ -117,6 +126,12 @@
                     font-size: 12px;
                     position: relative;
                     display: inline-block;
+
+                    span:not(:last-child):after {
+                        content: "-";
+                        display: inline-block;
+                        margin: 0 5px;
+                    }
                 }
 
                 .item-title {

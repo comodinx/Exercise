@@ -18,8 +18,12 @@ describe('Test <Header /> Component class', () => {
         const spyChange = jest.spyOn(Header.prototype, 'handleChange');
         const component = getComponent();
         const wrapper = mount(component);
+        const input = wrapper.find('input');
 
-        wrapper.find('input').simulate('change', global.mockObjects.event);
+        expect(input.length).toBe(1);
+
+        input.simulate('change', global.mockObjects.event);
+        expect(wrapper.instance().props.children.props.search).toEqual(global.mockObjects.event.target.search);
         expect(spyChange).toHaveBeenCalled();
     });
 
@@ -29,6 +33,15 @@ describe('Test <Header /> Component class', () => {
         const wrapper = mount(component);
 
         wrapper.find('form').simulate('submit', global.mockObjects.event);
+        expect(spySubmit).toHaveBeenCalled();
+    });
+
+    test('Header submit event when press button', () => {
+        const spySubmit = jest.spyOn(Header.prototype, 'handleSubmit');
+        const component = getComponent();
+        const wrapper = mount(component);
+
+        wrapper.find('button').simulate('click', global.mockObjects.event);
         expect(spySubmit).toHaveBeenCalled();
     });
 
@@ -42,16 +55,6 @@ describe('Test <Header /> Component class', () => {
 
         wrapper.find('form').simulate('submit', global.mockObjects.event);
         expect(spySubmit).toHaveBeenCalled();
-        expect(wrapper.instance().props.children.props.search).toEqual(props.search);
-    });
-
-    test('Header state search value', () => {
-        const props = {
-            search: 'autos'
-        };
-        const component = getComponent({}, props);
-        const wrapper = mount(component);
-
         expect(wrapper.instance().props.children.props.search).toEqual(props.search);
     });
 });

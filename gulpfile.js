@@ -10,9 +10,14 @@ const autoprefixer = require('gulp-autoprefixer');
 const webpack = require('webpack-stream');
 const webpackConfig = require('./webpack.config');
 
-// Code clean
+let clean;
+let scripts;
+let styles;
+let build;
+
+// Code review
 // ----------------------------------------------------
-gulp.task('lint:js', () => {
+function lint() {
     return gulp
         .src([
             'src/**/*.js',
@@ -22,56 +27,69 @@ gulp.task('lint:js', () => {
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());
-});
+}
 
 // Cleaning tasks
 // ----------------------------------------------------
-gulp.task('clean:js:client', () => {
+function cleanScriptsClient() {
     return del([
         './public/assets/js/bundle.js',
         './public/assets/js/bundle.js.map',
         './index.js.map'
     ]);
-});
+}
 
-gulp.task('clean:js:server', () => {
+function cleanScriptsServer() {
     return del([
         './index.js',
         './index.js.map'
     ]);
-});
+}
 
-gulp.task('clean:css', () => {
+function cleanScripts() {
+    return gulp.parallel(cleanScriptsClient, cleanScriptsServer);
+}
+
+function cleanStyles() {
     return del([
         './public/assets/css/styles.css'
     ]);
-});
+}
 
-gulp.task('clean', ['clean:js:client', 'clean:js:server', 'clean:css']);
+clean = gulp.parallel(cleanScripts, cleanStyles);
 
 // Building tasks
 // ----------------------------------------------------
-gulp.task('js:client', ['clean:js:client', 'lint:js'], () => {
+
+// Building scripts
+function buildScriptsClient() {
     return gulp
         .src('src/client/**/*.js')
         .pipe(webpack({
             config: webpackConfig[0] // Client configuration
         }))
         .pipe(gulp.dest('public/assets/js'));
-});
+}
 
-gulp.task('js:server', ['clean:js:server', 'lint:js'], () => {
+function buildScriptsServer() {
     return gulp
         .src('src/server/**/*.js')
         .pipe(webpack({
             config: webpackConfig[1] // Server configuration
         }))
         .pipe(gulp.dest('./'));
-});
+}
 
-gulp.task('js', ['lint:js', 'js:client', 'js:server']);
+scripts = gulp.series(
+    lint,
+    gulp.parallel(
+        gulp.series(cleanScriptsClient, buildScriptsClient),
+        gulp.series(cleanScriptsServer, buildScriptsServer)
+    )
+);
 
-gulp.task('css', ['clean:css'], () => {
+// Building styles
+function buildStyles() {
     return gulp
         .src('src/styles/styles.scss')
         .pipe(sourcemaps.init())
@@ -85,19 +103,23 @@ gulp.task('css', ['clean:css'], () => {
             browsers: ['last 2 versions']
         }))
         .pipe(gulp.dest('public/assets/css'));
-});
+}
 
-gulp.task('compile', ['js', 'css']);
+styles = gulp.series(cleanStyles, buildStyles);
+
+// Building all
+build = gulp.parallel(scripts, styles);
 
 // Tasks of Running
 // ----------------------------------------------------
-gulp.task('watch', ['compile'], () => {
-    gulp.watch('src/**/*.js', ['js']);
-    gulp.watch('src/styles/**/*.scss', ['css']);
-});
+function watch(done) {
+    gulp.watch('src/**/*.js', scripts);
+    gulp.watch('src/styles/**/*.scss', styles);
+    done();
+}
 
-gulp.task('start', ['compile'], () => {
-    nodemon({
+function start(done) {
+    return nodemon({
         ext: 'js',
         script: 'index.js',
         env: {
@@ -109,8 +131,16 @@ gulp.task('start', ['compile'], () => {
         ignore: [
             'public/assets/js',
             'node_modules/'
-        ]
+        ],
+        done
     });
-});
+}
 
-gulp.task('default', ['compile', 'watch', 'start']);
+module.exports.clean = clean;
+module.exports.styles = styles;
+module.exports.scripts = scripts;
+module.exports.watch = watch;
+
+gulp.task('build', build);
+
+gulp.task('default', gulp.series(build, watch, start));

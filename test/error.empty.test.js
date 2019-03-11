@@ -24,4 +24,3 @@ function getComponent(context, props = {}) {
         </StaticRouter>
     );
 }
-0

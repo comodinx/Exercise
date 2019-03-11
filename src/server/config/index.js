@@ -1,12 +1,9 @@
-import _ from 'underscore';
-import obj from '../helpers/object';
-// import { requiredirSync } from '../helpers/fs';
+import _ from 'lodash';
 import defaults from './environment/';
 import production from './environment/production';
 
-const SEPARATOR = ':';
+const SEPARATOR = '.';
 
-// const ENVIRONMENT = requiredirSync(`${__dirname}/environment`);
 const ENVIRONMENT = _.defaults({
     production
 }, defaults);
@@ -25,18 +22,18 @@ class Config {
     get(keys, defaultValue) {
         let value;
 
-        keys = typeof keys === 'string' ? keys.split(SEPARATOR) : keys || [];
-        value = obj.get(ENVIRONMENT, [this.mode, ...keys]);
+        keys = _.isString(keys) ? keys.split(SEPARATOR) : keys || [];
+        value = _.get(ENVIRONMENT, [this.mode, ...keys].join(SEPARATOR));
 
-        if (value == null) {
-            value = obj.get(ENVIRONMENT, keys, defaultValue);
+        if (_.isUndefined(value)) {
+            value = _.get(ENVIRONMENT, keys.join(SEPARATOR), defaultValue);
         }
         return value;
     }
 
     getBaseURL() {
-        let host = this.get('server:host');
-        let port = this.get('server:port');
+        let host = this.get('server.host');
+        let port = this.get('server.port');
         let url = host;
 
         if (port != 80) {

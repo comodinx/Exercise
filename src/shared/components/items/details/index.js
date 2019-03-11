@@ -33,33 +33,34 @@ class ItemDetails extends Component {
     }
 
     componentDidMount() {
-        if (!this.state.item) {
-            ItemDetails.fetchInitialData(this.state.idItem)
-                .then(res => this.setState(res))
-                .catch(error =>
-                    this.setState({
-                        error
-                    })
-                );
+        if (this.state.item) {
+            return;
         }
+
+        ItemDetails.fetchInitialData(this.state.idItem)
+            .then(res => this.setState(res))
+            .catch(error => this.setState({
+                error
+            }));
     }
 
     componentWillReceiveProps(props) {
-        if (props && props.match && props.match.params && props.match.params.id) {
-            this.setState({
-                idItem: props.match.params.id,
-                item: false,
-                error: false
-            });
-
-            setTimeout(() => ItemDetails.fetchInitialData(props.match.params.id)
-                .then(res => this.setState(res))
-                .catch(error =>
-                    this.setState({
-                        error
-                    })
-                ), 250); // eslint-disable-line no-magic-numbers
+        if (!props || !props.match || !props.match.params || !props.match.params.id) {
+            return;
         }
+
+        this.setState({
+            idItem: props.match.params.id,
+            item: false,
+            error: false
+        });
+
+        setTimeout(() => ItemDetails.fetchInitialData(props.match.params.id)
+            .then(res => this.setState(res))
+            .catch(error => this.setState({
+                error
+            }))
+        , 250); // eslint-disable-line no-magic-numbers
     }
 
     static fetchInitialData(id, options) {

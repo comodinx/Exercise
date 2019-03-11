@@ -1,8 +1,8 @@
 import config from '../config';
 
-const IS_ENABLED = config.get('author:enabled', true);
-const NAME = config.get('author:name', 'Nicolas');
-const LASTNAME = config.get('author:lastname', 'Molina');
+const IS_ENABLED = config.get('author.enabled', true);
+const NAME = config.get('author.name', 'Nicolas');
+const LASTNAME = config.get('author.lastname', 'Molina');
 
 class Middleware {
     get enabled() {

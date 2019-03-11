@@ -52,13 +52,19 @@ Configuración
 ##### Configuraciones por variables de entorno
 
 PORT={Número de puerto. (Por defecto: 3000, en modo producción: 8080)}
+Example:
+```sh
+PORT=3001 npm run start:d
+# OR
+PORT=8081 npm start
+```
 
 ##### Configuraciones por archivos
 
-La configuración del proyecto está ubicada en el siguiente directorio *_{proyect}/server/config/environment_*.
+La configuración del proyecto está ubicada en el siguiente directorio *_{proyect}/src/server/config/environment_*.
 Los archivos ubicados en el root de dicho directorio son las configuraciones por defecto. Las mismas, pueden ser sobreescritas por entorno, ejemplo.
 
-Si creamos tenemos un entorno *testing*, en el cual deseamos corre la aplicación en el puerto 4000, podemos crear la carpeta *testing* y el archivo *server.js* dentro de la misma, con el siguiente contenido.
+Si tenemos un entorno *staging*, en el cual deseamos correr la aplicación en el puerto 4000, podemos crear la carpeta *staging* (dentro de *_{proyect}/src/server/config/environment_*) y el archivo *server.js* dentro de la misma, con el siguiente contenido.
 
 ```javascript
 {
@@ -72,7 +78,11 @@ Por lo tanto, con este cambio nos quedaría (actualmente) la siguiente estructur
 config
   |-> environment
   |  |-> production
-  |  |-> testing
+  |  |  |-> ...
+  |  |-> staging
+  |  |  |-> server.js
+  |  |-> ...
+
 ```
 
 La configuración actual, se encuentra estructurada de la siguientes manera. Además, la misma incluye configuraciones para producción:
@@ -90,7 +100,7 @@ config
   |  |-> author.js (middleware)
   |  |-> morgan.js (middleware)
   |  |-> items.js (listing)
-  |  |-> request.js (herramienta para el manejo de peticiones a la API)
+  |  |-> request.js (configuraciones para la conexión a la API)
 ```
 
 Utilizar NVM
@@ -100,11 +110,11 @@ Para utilizar `nvm` primero debemos descargarlo.
 > Nota: para obtener información completa sobre `nvm` puede hacer [click aquí][nvm_site]
 
 ```sh
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 ```
 
 Luego, corremos el siguiente comando para instalar la versión correcta de NodeJS.
-> Nota: en el proyecto ya se encuentra un archivo llamado *.nvmrc* el cual indica la versión de NodeJS que se debe utilizar. Por lo tanto, al correr el siguiente comando se va a instalar dicha versión
+> Nota: en el proyecto ya se encuentra un archivo llamado *.nvmrc* el cual indica la versión de NodeJS (_11.1.0_) que se debe utilizar. Por lo tanto, al correr el siguiente comando se va a instalar dicha versión
 
 ```sh
 nvm install

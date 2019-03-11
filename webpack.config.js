@@ -1,49 +1,16 @@
 'use strict';
 
 const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+const MODE = process.env.NODE_ENV || 'development';
+const IS_PRODUCTION = MODE === 'production';
 const devtool = IS_PRODUCTION ? false : 'cheap-module-source-map';
-
-let pluginsClient = [
-    new webpack.BannerPlugin({
-        banner: '__isBrowser__ = true;',
-        raw: true,
-        include: /\.js$/
-    }),
-    new webpack.DefinePlugin({
-        'process.env': {
-            NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
-        }
-    })
-];
-
-let pluginsServer = [
-    new webpack.BannerPlugin({
-        banner: "__isBrowser__ = false;",
-        raw: true,
-        include: /\.js$/
-    })
-];
-
-if (IS_PRODUCTION) {
-    const plugin = new UglifyJSPlugin({
-        parallel: true,
-        uglifyOptions: {
-            compress: true,
-            output: {
-                comments: false
-            }
-        }
-    });
-
-    pluginsClient.push(plugin);
-    pluginsServer.push(plugin);
-}
 
 const clientConfig = {
     entry: [
+        'es6-promise',
         'isomorphic-fetch',
         './src/client/index.js'
     ],
@@ -63,11 +30,28 @@ const clientConfig = {
             }
         }]
     },
+    performance: {
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000
+    },
     stats: {
         warnings: false
     },
     watch: false,
-    plugins: pluginsClient,
+    plugins: [
+        new webpack.BannerPlugin({
+            banner: '__isBrowser__ = true;',
+            raw: true,
+            include: /\.js$/
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify(MODE)
+            }
+        })
+    ],
+    optimization: {},
+    mode: MODE,
     devtool
 };
 
@@ -79,6 +63,7 @@ const serverConfig = {
         filename: 'index.js',
         libraryTarget: 'commonjs2'
     },
+    externals: [nodeExternals()],
     module: {
         rules: [{
             test: /js$/,
@@ -95,8 +80,32 @@ const serverConfig = {
         warnings: false
     },
     watch: false,
-    plugins: pluginsServer,
+    plugins: [
+        new webpack.BannerPlugin({
+            banner: "__isBrowser__ = false;",
+            raw: true,
+            include: /\.js$/
+        })
+    ],
+    optimization: {},
+    mode: MODE,
     devtool
 };
+
+if (IS_PRODUCTION) {
+    const plugin = new TerserPlugin({
+        parallel: true,
+        terserOptions: {
+            compress: true,
+            warnings: false,
+            output: {
+                comments: false
+            }
+        }
+    });
+
+    clientConfig.optimization.minimizer = [plugin];
+    serverConfig.optimization.minimizer = [plugin];
+}
 
 module.exports = [clientConfig, serverConfig];

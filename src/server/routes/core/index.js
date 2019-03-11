@@ -1,5 +1,5 @@
+import _ from 'lodash';
 import P from 'bluebird';
-import _ from 'underscore';
 import React from 'react';
 import express from 'express';
 import serialize from 'serialize-javascript';
@@ -70,6 +70,11 @@ function handler(req, res, next) {
 
     P.bind(this)
     .then(() => P.resolve(activeRoute.component.fetchInitialData && activeRoute.component.fetchInitialData(args, DEFAULT_API_OPTIONS)))
+    .catch(error => {
+        return {
+            error
+        };
+    })
     .then(data => {
         return new P(resolve => {
             return P.resolve(activeRoute.component.prepareSeo && activeRoute.component.prepareSeo(data, args))

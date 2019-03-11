@@ -1,6 +1,6 @@
 // Imports
 // ----------------------------------------------------
-import _ from 'underscore';
+import _ from 'lodash';
 import cors from 'cors';
 import express from 'express';
 import favicon from 'serve-favicon';
@@ -22,7 +22,7 @@ const app = express();
 // Constants
 // ----------------------------------------------------
 const MODE = app.get('env') || 'development';
-const PORT = config.get('server:port', 3000);
+const PORT = config.get('server.port', 3000);
 
 // Configure
 // ----------------------------------------------------

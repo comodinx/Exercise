@@ -24,8 +24,8 @@ class Item extends Component {
                         </Link>
                     </figure>
                     <div className="item-detail" >
-                        <div className="item-price" >
-                            <Link to={'/items/' + item.id} className="item-price-link" >
+                        <div className="item-detail-header" >
+                            <Link to={'/items/' + item.id} className="item-price" >
                                 <span className="item-price-currency">{item.price.currency}&nbsp;</span>
                                 <span className="item-price-value">
                                     <IntlProvider locale="en">
@@ -33,12 +33,15 @@ class Item extends Component {
                                     </IntlProvider>
                                 </span>
                                 {item.free_shipping &&
-                                    <img width="18" height="18" alt="Envio gratis" src="/assets/img/ic_shipping.png" className="item-price-shipping" />
+                                    <img width="18" height="18" alt="Envio gratis" src="/assets/img/ic_shipping.png" className="item-shipping" />
+                                }
+                                {item.location &&
+                                    <span className="item-location">{item.location}</span>
                                 }
                             </Link>
                         </div>
-                        <div className="item-title clear" >
-                            <Link to={'/items/' + item.id} className="item-title-link" >{item.title}</Link>
+                        <div className="item-detail-body clear" >
+                            <Link to={'/items/' + item.id} className="item-title" >{item.title}</Link>
                         </div>
                     </div>
                 </div>

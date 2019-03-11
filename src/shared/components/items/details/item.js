@@ -25,7 +25,7 @@ class Item extends Component {
             condition = item.condition == 'new' ? 'Nuevo' : 'Usado';
         }
 
-        hasStatus = !!(description || condition);
+        hasStatus = !!(item.sold_quantity || condition);
 
         return (
             <section className="item-page">
@@ -36,12 +36,12 @@ class Item extends Component {
                         </figure>
                         <div className="item-detail" >
                             {hasStatus &&
-                                <div className="item-status" >
+                                <div className="item-status">
                                     {condition &&
-                                        <span>{condition}</span>
+                                        <span className="item-condition">{condition}</span>
                                     }
                                     {item.sold_quantity > 0 &&
-                                        <span>{(condition ? item.price.decimals : '') + item.sold_quantity + ' vendidos'}</span>
+                                        <span className="item-sold">{(condition ? item.price.decimals : '') + item.sold_quantity + ' vendido' + (item.sold_quantity > 1 ? 's' : '')}</span>
                                     }
                                 </div>
                             }

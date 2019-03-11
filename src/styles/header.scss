@@ -55,6 +55,10 @@
                 @include border-radius(3px);
                 @include box-shadow();
                 @include box-sizing();
+
+                &::placeholder {
+                    color: $fontLightColor;
+                }
             }
 
             .search-btn {

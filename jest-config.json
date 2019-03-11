@@ -1,0 +1,24 @@
+{
+  "setupFiles": [
+    "./test/setupTests.js"
+  ],
+  "collectCoverageFrom": [
+    "src/shared/**/*.js",
+    "!src/shared/app/*.js",
+    "!src/shared/routes.js",
+    "!**/node_modules/**"
+  ],
+  "coverageDirectory": "./test/coverage",
+  "coverageThreshold": {
+    "global": {
+      "branches": 50,
+      "functions": 75,
+      "lines": 75,
+      "statements": 75
+    },
+    "src/shared/components/**/*.js": {
+      "branches": 50,
+      "statements": 50
+    }
+  }
+}

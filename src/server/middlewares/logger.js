@@ -2,9 +2,9 @@ import moment from 'moment';
 import morgan from 'morgan';
 import config from '../config';
 
-const IS_ENABLED = config.get('morgan:enabled', true);
-const OPTIONS = config.get('morgan:options', {});
-const FORMAT = config.get('morgan:format', 'combined');
+const IS_ENABLED = config.get('morgan.enabled', true);
+const OPTIONS = config.get('morgan.options', {});
+const FORMAT = config.get('morgan.format', 'combined');
 
 class Middleware {
     constructor() {

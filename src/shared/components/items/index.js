@@ -8,6 +8,7 @@ import * as qs from 'query-string';
 import Layout from '../commons/layout';
 import Loader from '../commons/loader';
 import Empty from '../errors/empty';
+import Categories from './details/categories';
 import ItemsList from './items';
 
 const ITEM_ID_PATTERN = /^MLA\d+$/;
@@ -36,54 +37,58 @@ class Items extends Component {
             initialData = props.staticContext.initialData;
         }
 
+        initialData = initialData || {};
+
         this.state = {
             search: qs.parse(((this.props && this.props.location) || {}).search || '?search=').search || '',
-            items: (initialData || {}).items
+            categories: initialData.categories,
+            items: initialData.items
         };
     }
 
     componentDidMount() {
-        if (!this.state.items) {
-            const { history } = this.context.router;
-            const search = this.state.search;
-
-            if (ITEM_ID_PATTERN.test(search)) {
-                return history.push(`/items/${search}`);
-            }
-
-            Items.fetchInitialData(search)
-                .then(res => this.setState(res))
-                .catch(error =>
-                    this.setState({
-                        error
-                    })
-                );
+        if (this.state.items) {
+            return;
         }
+
+        const { history } = this.context.router;
+        const search = this.state.search;
+
+        if (ITEM_ID_PATTERN.test(search)) {
+            return history.push(`/items/${search}`);
+        }
+
+        Items.fetchInitialData(search)
+            .then(res => this.setState(res))
+            .catch(error => this.setState({
+                error
+            }));
     }
 
     componentWillReceiveProps(props) {
-        if (props && props.history && props.history.location) {
-            const search = qs.parse(props.history.location.search || '?search=').search || '';
-            const { history } = this.context.router;
-
-            if (ITEM_ID_PATTERN.test(search)) {
-                return history.push(`/items/${search}`);
-            }
-
-            this.setState({
-                search: search,
-                items: false,
-                error: false
-            });
-
-            setTimeout(() => Items.fetchInitialData(search)
-                .then(res => this.setState(res))
-                .catch(error =>
-                    this.setState({
-                        error
-                    })
-                ), 250); // eslint-disable-line no-magic-numbers
+        if (!props || !props.history || !props.history.location) {
+            return;
         }
+
+        const search = qs.parse(props.history.location.search || '?search=').search || '';
+        const { history } = this.context.router;
+
+        if (ITEM_ID_PATTERN.test(search)) {
+            return history.push(`/items/${search}`);
+        }
+
+        this.setState({
+            search: search,
+            items: false,
+            error: false
+        });
+
+        setTimeout(() => Items.fetchInitialData(search)
+            .then(res => this.setState(res))
+            .catch(error => this.setState({
+                error
+            }))
+        , 250); // eslint-disable-line no-magic-numbers
     }
 
     static fetchInitialData(search, options) {
@@ -105,7 +110,7 @@ class Items extends Component {
 
     render() {
         const { props } = this;
-        const { error, items, search } = this.state;
+        const { error, items, categories = [], search } = this.state;
 
         if (!error && !items) {
             return <Loader {...props} />;
@@ -116,6 +121,9 @@ class Items extends Component {
         return (
             <Layout {...props} >
                 <Helmet {...Items.prepareSeo(null, search)} />
+                {categories.length > 0 &&
+                    <Categories categories={categories} />
+                }
                 <ItemsList items={items} />
             </Layout>
         );

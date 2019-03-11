@@ -1,11 +1,12 @@
-import _ from 'underscore';
+import _ from 'lodash';
+import P from 'bluebird';
 import e from '../helpers/e';
+import status from '../helpers/http/status';
 import request from '../modules/request';
 import config from '../config';
 import categoriesProvider from './categories';
-// import currenciesProvider from './currencies';
 
-const LIMIT_ON_LISTING = config.get('items:limitOnListing', 4);
+const LIMIT_ON_LISTING = config.get('items.limitOnListing', 4);
 
 class Items {
     getItems(search) {
@@ -18,8 +19,15 @@ class Items {
                 return body.results;
             })
             .then(items => {
+                // We look for the category that most results obtained
+                return this.getCategoryMostResultsObtained(items).then(categories => {
+                    return [items, categories];
+                });
+            })
+            .spread((items, categories) => {
                 return {
-                    items: this.parseItems(items)
+                    items: this.parseItems(items),
+                    categories
                 };
             });
     }
@@ -43,6 +51,12 @@ class Items {
                             item.description = body.plain_text || '';
                         }
                         return item;
+                    })
+                    .catch(error => {
+                        if (error.statusCode && error.statusCode === status.NOT_FOUND) {
+                            return item;
+                        }
+                        throw error;
                     });
             })
             .then(item => {
@@ -68,12 +82,28 @@ class Items {
             });
     }
 
+    getCategoryMostResultsObtained(items) {
+        return P.bind(this)
+            .then(() => {
+                let counters = _.countBy(_.map(items, 'category_id'));
+                let category = _.maxBy(_.keys(counters), category => counters[category]);
+
+                if (!category) {
+                    return [];
+                }
+                return categoriesProvider.getCategories(category);
+            })
+            .catch(() => {
+                return [];
+            });
+    }
+
     parseItems(items) {
-        return _.map(items, this.parseItem);
+        return _.map(items, (item) => this.parseItem(item));
     }
 
     parseItem(res, hasDetailInformation) {
-        let item = _.pick(res, 'id', 'title', 'description', 'price', 'condition', 'shipping', 'thumbnail', 'sold_quantity', 'pictures');
+        let item = _.pick(res, ['id', 'title', 'description', 'price', 'condition', 'shipping', 'thumbnail', 'sold_quantity', 'pictures', 'address']);
 
         // Prepare PICTURE
         item.picture = item.pictures && item.pictures.length && item.pictures[0].url || item.thumbnail;
@@ -90,6 +120,11 @@ class Items {
         // Prepare SHIPPING
         item.free_shipping = item.shipping && item.shipping.free_shipping; // eslint-disable-line camelcase
         delete item.shipping;
+
+        // Prepare LOCATION
+        item.location = item.address && _.pick(item.address, ['city_name', 'state_name']);
+        item.location = item.location && _.uniq(_.values(item.location)).join(', ');
+        delete item.address;
 
         if (!hasDetailInformation) {
             delete item.sold_quantity;

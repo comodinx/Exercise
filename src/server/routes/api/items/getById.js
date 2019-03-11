@@ -1,4 +1,5 @@
 import status from '../../../helpers/http/status';
+import errorHandler from '../../../helpers/errorHandler';
 import itemsProvider from '../../../providers/items';
 
 /**
@@ -50,9 +51,5 @@ export default (req, res) => {
             result.author = req.author;
             res.status(status.OK).json(result);
         })
-        .catch(error => {
-            res.status(status.INTERNAL_SERVER_ERROR).json({
-                error: error && error.message || (error || 'Internal Server Error').toString()
-            });
-        });
+        .catch(errorHandler.bind(null, res));
 };

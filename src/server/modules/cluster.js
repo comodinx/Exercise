@@ -1,9 +1,9 @@
-import _ from 'underscore';
+import _ from 'lodash';
 import cluster from 'cluster';
 import config from '../config';
 
-const COUNT = config.get('cluster:workers', 1);
-const IS_ENABLED = config.get('cluster:enabled', false);
+const COUNT = config.get('cluster.workers', 1);
+const IS_ENABLED = config.get('cluster.enabled', false);
 
 class Cluster {
     get enabled() {
