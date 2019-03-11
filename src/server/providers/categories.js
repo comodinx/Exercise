@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import P from 'bluebird';
 import e from '../helpers/e';
 import request from '../modules/request';
@@ -23,7 +24,7 @@ class Categories {
                         return body.path_from_root;
                     })
                     .then(categories => {
-                        cache[id] = categories;
+                        cache[id] = _.map(categories, 'name');
                         return cache[id];
                     });
             });

@@ -35,8 +35,8 @@ class Item extends Component {
                                 {item.free_shipping &&
                                     <img width="18" height="18" alt="Envio gratis" src="/assets/img/ic_shipping.png" className="item-shipping" />
                                 }
-                                {item.location &&
-                                    <span className="item-location">{item.location}</span>
+                                {item.address &&
+                                    <span className="item-address">{item.address}</span>
                                 }
                             </Link>
                         </div>

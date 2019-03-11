@@ -15,8 +15,8 @@ class Categories extends Component {
             <section className="categories" >
                 <ul className="categories-results" >
                     {this.state.categories.map(category => (
-                        <li className="category" key={category.id}>
-                            <span className="category-name">{category.name}</span>
+                        <li className="category" key={category}>
+                            <span className="category-name">{category}</span>
                         </li>
                     ))}
                 </ul>

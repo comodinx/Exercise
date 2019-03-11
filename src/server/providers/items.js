@@ -121,9 +121,9 @@ class Items {
         item.free_shipping = item.shipping && item.shipping.free_shipping; // eslint-disable-line camelcase
         delete item.shipping;
 
-        // Prepare LOCATION
-        item.location = item.address && _.pick(item.address, ['city_name', 'state_name']);
-        item.location = item.location && _.uniq(_.values(item.location)).join(', ');
+        // Prepare ADDRESS
+        item.address = item.address && _.pick(item.address, ['city_name', 'state_name']);
+        item.address = item.address && _.uniq(_.values(item.address)).join(', ');
         delete item.address;
 
         if (!hasDetailInformation) {
