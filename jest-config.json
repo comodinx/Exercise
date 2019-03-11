@@ -15,10 +15,6 @@
       "functions": 75,
       "lines": 75,
       "statements": 75
-    },
-    "src/shared/components/**/*.js": {
-      "branches": 50,
-      "statements": 50
     }
   }
 }
