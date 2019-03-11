@@ -103,8 +103,7 @@ config
   |  |-> request.js (configuraciones para la conexión a la API)
 ```
 
-Utilizar NVM
-============
+##### Utilizar NVM
 
 Para utilizar `nvm` primero debemos descargarlo.
 > Nota: para obtener información completa sobre `nvm` puede hacer [click aquí][nvm_site]
