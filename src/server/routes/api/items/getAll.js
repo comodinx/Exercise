@@ -27,7 +27,8 @@ import itemsProvider from '../../../providers/items';
  *              },
  *              “picture”: String,
  *              "condition": String,
- *              "free_shipping": Boolean
+ *              "free_shipping": Boolean,
+ *              "address": string
  *          },
  *          {...},
  *          {...},

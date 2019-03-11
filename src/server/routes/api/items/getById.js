@@ -16,6 +16,7 @@ import itemsProvider from '../../../providers/items';
  *              "name": String,
  *              "lastname": String
  *          },
+ *          "categories": [String, String, ...],
  *          "item": {
  *              "id": String,
  *              "title": String,
@@ -28,6 +29,7 @@ import itemsProvider from '../../../providers/items';
  *              "condition": String,
  *              "free_shipping": Boolean,
  *              "sold_quantity": Number,
+ *              "address": string,
  *              "description": String
  *          }
  *      }
